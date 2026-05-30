@@ -6,9 +6,11 @@
   <title>Belajar Matematika Dasar</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght=400;500;600&family=JetBrains+Mono:wght=400;500&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    /* THEME VARIABLES */
     :root {
       --bg: #F8F7F4; --surface: #FFFFFF; --surface2: #F1EFE8;
       --border: rgba(0,0,0,0.1); --border-md: rgba(0,0,0,0.18);
@@ -19,97 +21,135 @@
       --amber-bg: #FAEEDA; --amber-border: #854F0B; --amber-text: #633806;
       --radius: 10px; --radius-lg: 14px;
     }
-    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
-    header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 56px; position: sticky; top: 0; z-index: 10; }
+
+    /* DARK MODE */
+    [data-theme="dark"] {
+      --bg: #121212; --surface: #1E1E1E; --surface2: #2A2A28;
+      --border: rgba(255,255,255,0.1); --border-md: rgba(255,255,255,0.2);
+      --text: #E5E5E0; --text-muted: #A5A49F; --text-hint: #706F6A;
+      --purple: #948DF3; --purple-dark: #C1BCFF; --purple-light: #25233C;
+      --green-bg: #1C2B11; --green-border: #62A62C; --green-text: #A3E66C;
+      --red-bg: #2D1414; --red-border: #E05353; --red-text: #FFA1A1;
+      --amber-bg: #2C1E0A; --amber-border: #D98C26; --amber-text: #FCD39D;
+    }
+
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; transition: background 0.3s ease, color 0.3s ease; }
+    header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 56px; position: sticky; top: 0; z-index: 10; transition: background 0.3s ease, border-color 0.3s ease; }
     .logo { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 600; color: var(--text); text-decoration: none; }
-    .logo-icon { width: 32px; height: 32px; background: var(--purple); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+    .logo-icon { width: 32px; height: 32px; background: var(--purple); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; color: #fff; transition: transform 0.3s ease; }
+    .logo:hover .logo-icon { transform: rotate(15deg); }
+    
+    .header-right { display: flex; align-items: center; gap: 12px; }
     nav { display: flex; gap: 4px; }
-    .nav-btn { padding: 6px 14px; border-radius: var(--radius); border: none; background: transparent; font-family: inherit; font-size: 14px; color: var(--text-muted); cursor: pointer; transition: all 0.15s; font-weight: 400; }
+    .nav-btn { padding: 6px 14px; border-radius: var(--radius); border: none; background: transparent; font-family: inherit; font-size: 14px; color: var(--text-muted); cursor: pointer; transition: all 0.2s ease; font-weight: 400; }
     .nav-btn:hover { background: var(--surface2); color: var(--text); }
     .nav-btn.active { background: var(--purple-light); color: var(--purple-dark); font-weight: 500; }
+    
+    .theme-toggle { background: var(--surface2); border: 1px solid var(--border); border-radius: var(--radius); width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 16px; transition: all 0.2s ease; }
+    .theme-toggle:hover { border-color: var(--purple); transform: scale(1.05); }
+
     main { max-width: 760px; margin: 0 auto; padding: 32px 24px 60px; }
-    .hero { text-align: center; padding: 40px 0 32px; }
+    .hero { text-align: center; padding: 30px 0 24px; animation: fadeInUp 0.5s ease forwards; }
     .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--purple-light); color: var(--purple-dark); font-size: 13px; font-weight: 500; padding: 5px 14px; border-radius: 999px; margin-bottom: 16px; }
     .hero h1 { font-size: 36px; font-weight: 600; color: var(--text); margin-bottom: 10px; line-height: 1.25; }
-    .hero p { color: var(--text-muted); font-size: 16px; max-width: 420px; margin: 0 auto; line-height: 1.7; }
-    .section { display: none; }
-    .section.active { display: block; }
+    .hero p { color: var(--text-muted); font-size: 16px; max-width: 450px; margin: 0 auto; line-height: 1.7; }
+    
+    .section { display: none; opacity: 0; transform: translateY(10px); transition: opacity 0.3s ease, transform 0.3s ease; }
+    .section.active { display: block; opacity: 1; transform: translateY(0); }
 
     /* MATERI */
     .topic-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 24px; }
-    .topic-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px; cursor: pointer; transition: all 0.15s; }
-    .topic-card:hover { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(127,119,221,0.12); }
+    .topic-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px; cursor: pointer; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); position: relative; overflow: hidden; }
+    .topic-card:hover { border-color: var(--purple); transform: translateY(-2px); box-shadow: 0 4px 12px rgba(127,119,221,0.15); }
     .topic-card.selected { border-color: var(--purple); background: var(--purple-light); }
     .topic-icon { font-size: 26px; margin-bottom: 10px; display: block; }
     .topic-card h3 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
     .topic-card p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
-    .lesson-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px; margin-bottom: 12px; animation: fadeIn 0.2s ease; }
-    @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+    
+    .lesson-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px; margin-bottom: 12px; animation: fadeInUp 0.3s ease forwards; }
     .lesson-box h2 { font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
     .lesson-item { margin-bottom: 18px; }
     .lesson-item:last-child { margin-bottom: 0; }
     .lesson-sub { font-size: 12px; font-weight: 500; color: var(--purple-dark); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
-    .formula { background: var(--surface2); border-left: 3px solid var(--purple); border-radius: 0 var(--radius) var(--radius) 0; padding: 10px 14px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--text); margin-bottom: 6px; }
+    .formula { background: var(--surface2); border-left: 3px solid var(--purple); border-radius: 0 var(--radius) var(--radius) 0; padding: 10px 14px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--text); margin-bottom: 6px; transition: background 0.3s; }
     .example { font-size: 14px; color: var(--text-muted); line-height: 1.7; padding-left: 4px; }
 
-    /* LATIHAN */
-    .latihan-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
-    .latihan-header h2 { font-size: 18px; font-weight: 600; }
-    .topic-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
-    .topic-tab { padding: 6px 14px; border-radius: 999px; border: 1px solid var(--border-md); background: var(--surface); font-family: inherit; font-size: 13px; color: var(--text-muted); cursor: pointer; transition: all 0.15s; font-weight: 400; }
+    /* LATIHAN & LEADERBOARD */
+    .latihan-layout { display: flex; flex-direction: column; gap: 16px; }
+    .stats-bar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; justify-content: space-between; }
+    .stats-group { display: flex; gap: 8px; flex-wrap: wrap; }
+    .stat-badge { background: var(--surface); border: 1px solid var(--border); padding: 6px 14px; border-radius: var(--radius); font-size: 13px; color: var(--text-muted); display: flex; align-items: center; gap: 6px; transition: background 0.3s; }
+    .stat-badge b { color: var(--text); }
+    
+    /* Timer Style */
+    .timer-badge { background: var(--purple-light); color: var(--purple-dark); font-weight: 600; border: 1px solid rgba(127,119,221,0.3); }
+    .timer-badge.warning { background: var(--red-bg); color: var(--red-text); border-color: var(--red-border); animation: pulse 0.5s infinite alternate; }
+    
+    .topic-tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+    .topic-tab { padding: 6px 14px; border-radius: 999px; border: 1px solid var(--border-md); background: var(--surface); font-family: inherit; font-size: 13px; color: var(--text-muted); cursor: pointer; transition: all 0.2s; font-weight: 400; }
     .topic-tab:hover { background: var(--surface2); }
     .topic-tab.active { background: var(--purple); color: #fff; border-color: var(--purple-dark); font-weight: 500; }
-    .diff-tabs { display: flex; gap: 6px; margin-bottom: 20px; }
-    .diff-tab { padding: 5px 14px; border-radius: 999px; border: 1px solid var(--border-md); background: var(--surface); font-family: inherit; font-size: 13px; cursor: pointer; transition: all 0.15s; font-weight: 400; color: var(--text-muted); }
+    
+    .diff-tabs { display: flex; gap: 6px; }
+    .diff-tab { padding: 5px 14px; border-radius: 999px; border: 1px solid var(--border-md); background: var(--surface); font-family: inherit; font-size: 13px; cursor: pointer; transition: all 0.2s; color: var(--text-muted); }
     .diff-tab:hover { background: var(--surface2); }
     .diff-tab.active-mudah { background: var(--green-bg); color: var(--green-text); border-color: var(--green-border); font-weight: 500; }
     .diff-tab.active-sedang { background: var(--amber-bg); color: var(--amber-text); border-color: var(--amber-border); font-weight: 500; }
     .diff-tab.active-susah { background: var(--red-bg); color: var(--red-text); border-color: var(--red-border); font-weight: 500; }
-    .diff-badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 9px; border-radius: 999px; margin-bottom: 8px; }
+    
+    .diff-badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 9px; border-radius: 999px; }
     .diff-badge.mudah { background: var(--green-bg); color: var(--green-text); }
     .diff-badge.sedang { background: var(--amber-bg); color: var(--amber-text); }
     .diff-badge.susah { background: var(--red-bg); color: var(--red-text); }
 
-    .lat-score-bar { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; font-size: 14px; color: var(--text-muted); display: flex; gap: 20px; margin-bottom: 16px; align-items: center; flex-wrap: wrap; }
+    .lat-score-bar { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; font-size: 14px; color: var(--text-muted); display: flex; gap: 20px; align-items: center; flex-wrap: wrap; transition: background 0.3s; }
     .lat-score-bar span b { color: var(--text); }
-    .progress-wrap { flex: 1; min-width: 80px; background: var(--surface2); border-radius: 999px; height: 6px; overflow: hidden; }
-    .progress-fill { height: 100%; background: var(--purple); border-radius: 999px; transition: width 0.3s ease; }
+    .progress-wrap { flex: 1; min-width: 80px; background: var(--surface2); border-radius: 999px; height: 6px; overflow: hidden; position: relative; }
+    .progress-fill { height: 100%; background: var(--purple); border-radius: 999px; width: 0%; transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+    
+    /* Countdown Time Bar */
+    .timer-bar-wrap { width: 100%; background: var(--surface2); height: 4px; border-radius: 999px; overflow: hidden; margin-top: -8px; margin-bottom: 8px; }
+    .timer-bar-fill { height: 100%; background: var(--purple); width: 100%; transition: width 0.1s linear; }
+    .timer-bar-fill.warning { background: var(--red-border); }
 
-    .quiz-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px; animation: fadeIn 0.2s ease; }
-    .quiz-num { font-size: 12px; color: var(--text-hint); font-weight: 500; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.06em; }
-    .quiz-q { font-size: 17px; font-weight: 500; color: var(--text); margin-bottom: 18px; line-height: 1.5; }
+    .quiz-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px; animation: fadeInUp 0.3s ease forwards; transition: background 0.3s; }
+    .quiz-num { font-size: 12px; color: var(--text-hint); font-weight: 500; text-transform: uppercase; letter-spacing: 0.06em; }
+    .quiz-q { font-size: 17px; font-weight: 500; color: var(--text); margin: 14px 0 18px; line-height: 1.5; }
     .quiz-opts { display: flex; flex-direction: column; gap: 8px; }
-    .quiz-opt { padding: 11px 16px; border-radius: var(--radius); border: 1px solid var(--border-md); background: var(--bg); cursor: pointer; font-size: 15px; text-align: left; transition: all 0.15s; color: var(--text); font-family: inherit; font-weight: 400; }
-    .quiz-opt:hover:not(.disabled) { background: var(--purple-light); border-color: var(--purple); }
-    .quiz-opt.correct { background: var(--green-bg); border-color: var(--green-border); color: var(--green-text); }
+    .quiz-opt { padding: 11px 16px; border-radius: var(--radius); border: 1px solid var(--border-md); background: var(--bg); cursor: pointer; font-size: 15px; text-align: left; transition: all 0.15s ease; color: var(--text); font-family: inherit; font-weight: 400; }
+    .quiz-opt:hover:not(.disabled) { background: var(--purple-light); border-color: var(--purple); transform: translateX(2px); }
+    .quiz-opt.correct { background: var(--green-bg); border-color: var(--green-border); color: var(--green-text); font-weight: 500; }
     .quiz-opt.wrong { background: var(--red-bg); border-color: var(--red-border); color: var(--red-text); }
     .quiz-opt.disabled { pointer-events: none; }
-    .explain-box { margin-top: 14px; background: var(--surface2); border-radius: var(--radius); padding: 12px 14px; font-size: 14px; color: var(--text-muted); line-height: 1.7; border-left: 3px solid var(--purple); display: none; }
+    
+    .explain-box { margin-top: 14px; background: var(--surface2); border-radius: var(--radius); padding: 12px 14px; font-size: 14px; color: var(--text-muted); line-height: 1.7; border-left: 3px solid var(--purple); display: none; animation: fadeIn 0.3s ease; }
     .quiz-actions { display: flex; gap: 10px; margin-top: 16px; }
 
-    .btn { padding: 9px 20px; border-radius: var(--radius); border: 1px solid var(--border-md); background: var(--surface); font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.15s; color: var(--text); }
-    .btn:hover { background: var(--surface2); }
+    .btn { padding: 9px 20px; border-radius: var(--radius); border: 1px solid var(--border-md); background: var(--surface); font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.2s ease; color: var(--text); display: inline-flex; align-items: center; gap: 6px; }
+    .btn:hover { background: var(--surface2); transform: translateY(-1px); }
+    .btn:active { transform: translateY(0); }
     .btn-primary { background: var(--purple); color: #fff; border-color: var(--purple-dark); }
-    .btn-primary:hover { background: var(--purple-dark); }
+    .btn-primary:hover { background: var(--purple-dark); box-shadow: 0 4px 10px rgba(127,119,221,0.25); }
 
-    .result-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; text-align: center; animation: fadeIn 0.3s ease; }
-    .result-emoji { font-size: 48px; margin-bottom: 12px; }
+    .result-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; text-align: center; animation: scaleUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+    .result-emoji { font-size: 48px; margin-bottom: 12px; display: inline-block; animation: bounce 1s infinite alternate; }
     .result-card h2 { font-size: 22px; font-weight: 600; margin-bottom: 8px; }
     .result-card p { color: var(--text-muted); font-size: 15px; line-height: 1.7; }
     .result-score { font-size: 40px; font-weight: 600; color: var(--purple); margin: 16px 0 8px; }
 
     /* KALKULATOR */
     .calc-wrap { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
-    .calc { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px; width: 300px; flex-shrink: 0; }
-    .calc-display { background: var(--surface2); border-radius: var(--radius); padding: 14px 16px; text-align: right; margin-bottom: 14px; min-height: 70px; display: flex; flex-direction: column; justify-content: flex-end; }
+    .calc { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px; width: 300px; flex-shrink: 0; transition: background 0.3s; }
+    .calc-display { background: var(--surface2); border-radius: var(--radius); padding: 14px 16px; text-align: right; margin-bottom: 14px; min-height: 70px; display: flex; flex-direction: column; justify-content: flex-end; transition: background 0.3s; }
     .calc-expr { font-size: 13px; color: var(--text-hint); min-height: 18px; font-family: 'JetBrains Mono', monospace; }
     .calc-result { font-size: 30px; font-weight: 600; color: var(--text); font-family: 'JetBrains Mono', monospace; }
     .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; }
-    .calc-btn { padding: 14px 0; border-radius: var(--radius); border: 1px solid var(--border); background: var(--bg); cursor: pointer; font-size: 16px; font-weight: 400; color: var(--text); transition: all 0.1s; font-family: 'JetBrains Mono', monospace; }
+    .calc-btn { padding: 14px 0; border-radius: var(--radius); border: 1px solid var(--border); background: var(--bg); cursor: pointer; font-size: 16px; font-weight: 400; color: var(--text); transition: all 0.1s ease; font-family: 'JetBrains Mono', monospace; }
     .calc-btn:hover { background: var(--surface2); }
     .calc-btn:active { transform: scale(0.95); }
     .calc-btn.op { color: var(--purple-dark); font-weight: 600; background: var(--purple-light); border-color: rgba(127,119,221,0.3); }
     .calc-btn.op:hover { background: #CECBF6; }
+    [data-theme="dark"] .calc-btn.op:hover { background: #322F55; }
     .calc-btn.eq { background: var(--purple); color: #fff; border-color: var(--purple-dark); }
     .calc-btn.eq:hover { background: var(--purple-dark); }
     .calc-btn.clr { color: #D85A30; }
@@ -120,11 +160,20 @@
     .shortcut .key { font-family: 'JetBrains Mono', monospace; background: var(--surface2); border: 1px solid var(--border-md); border-radius: 5px; padding: 2px 7px; font-size: 12px; color: var(--purple-dark); white-space: nowrap; }
     .shortcut .desc { color: var(--text-muted); line-height: 1.5; }
 
-    footer { text-align: center; padding: 24px; color: var(--text-hint); font-size: 13px; border-top: 1px solid var(--border); }
+    footer { text-align: center; padding: 24px; color: var(--text-hint); font-size: 13px; border-top: 1px solid var(--border); margin-top: 40px; }
+    
+    /* ANIMATIONS CRADLE */
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes fadeInUp { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes scaleUp { from { opacity: 0; transform: scale(0.96); } to { opacity: 1; transform: scale(1); } }
+    @keyframes pulse { from { transform: scale(1); } to { transform: scale(1.03); } }
+    @keyframes bounce { from { transform: translateY(0); } to { transform: translateY(-6px); } }
+
     @media (max-width: 560px) {
       .hero h1 { font-size: 26px; }
       nav .nav-btn span { display: none; }
       .calc { width: 100%; }
+      .stats-bar { flex-direction: column; align-items: flex-start; }
     }
   </style>
 </head>
@@ -135,78 +184,89 @@
     <div class="logo-icon">📐</div>
     MatDasar
   </a>
-  <nav>
-    <button class="nav-btn active" onclick="showTab('materi')">📖 <span>Materi</span></button>
-    <button class="nav-btn" onclick="showTab('latihan')">🎯 <span>Latihan</span></button>
-    <button class="nav-btn" onclick="showTab('kalkulator')">🔢 <span>Kalkulator</span></button>
-  </nav>
+  <div class="header-right">
+    <nav>
+      <button class="nav-btn active" onclick="showTab('materi')">📖 <span>Materi</span></button>
+      <button class="nav-btn" onclick="showTab('latihan')">🎯 <span>Latihan</span></button>
+      <button class="nav-btn" onclick="showTab('kalkulator')">🔢 <span>Kalkulator</span></button>
+    </nav>
+    <button class="theme-toggle" onclick="toggleTheme()" title="Ubah Tema">🌓</button>
+  </div>
 </header>
 
 <main>
 
   <div class="hero">
-    <div class="hero-badge">✨ Gratis & tanpa login</div>
-    <h1>Belajar Matematika<br>jadi lebih mudah</h1>
-    <p>Pelajari materi, uji kemampuan dengan latihan soal bertingkat, dan pakai kalkulator bawaan.</p>
+    <div class="hero-badge">⚡ Interaktif & Kompetitif</div>
+    <h1>Belajar Matematika<br>jadi lebih hidup</h1>
+    <p>Pelajari materi dasar hingga tingkat lanjut, pacu kecepatanmu dengan timer latihan, dan pantau skor tertinggi kamu!</p>
   </div>
 
-  <!-- MATERI -->
   <div id="materi" class="section active">
     <div class="topic-grid">
       <div class="topic-card" onclick="showLesson('penjumlahan', this)">
         <span class="topic-icon">➕</span>
         <h3>Penjumlahan & Pengurangan</h3>
-        <p>Sifat dan operasi bilangan bulat</p>
+        <p>Sifat dasar operasi bilangan bulat</p>
       </div>
       <div class="topic-card" onclick="showLesson('perkalian', this)">
         <span class="topic-icon">✖️</span>
         <h3>Perkalian & Pembagian</h3>
-        <p>Cara cepat dan sifat perkalian</p>
+        <p>Cara cepat & asosiatif pembagian</p>
       </div>
-      <div class="topic-card" onclick="showLesson('pecahan', this)">
-        <span class="topic-icon">½</span>
-        <h3>Pecahan</h3>
-        <p>Operasi pada bilangan pecahan</p>
+      <div class="topic-card" onclick="showLesson('aljabar', this)">
+        <span class="topic-icon">✖️</span>
+        <h3>Aljabar Dasar</h3>
+        <p>Variabel, konstanta, & variabel linear</p>
       </div>
-      <div class="topic-card" onclick="showLesson('persen', this)">
-        <span class="topic-icon">%</span>
-        <h3>Persentase</h3>
-        <p>Cara mudah menghitung persen</p>
+      <div class="topic-card" onclick="showLesson('geometri', this)">
+        <span class="topic-icon">⬡</span>
+        <h3>Geometri Ruang & Datar</h3>
+        <p>Rumus keliling, luas, & volume dasar</p>
       </div>
     </div>
     <div id="lesson-content"></div>
   </div>
 
-  <!-- LATIHAN -->
   <div id="latihan" class="section">
-    <div class="latihan-header">
-      <h2>Latihan Soal</h2>
-    </div>
+    <div class="latihan-layout">
+      
+      <div class="stats-bar">
+        <div class="stats-group">
+          <div class="stat-badge">🏆 Rekor Tertinggi: <b id="stat-highscore">0/5</b></div>
+          <div class="stat-badge">🔥 Streak Jawaban: <b id="stat-streak">0</b></div>
+        </div>
+        <div class="stat-badge timer-badge" id="timer-display">⏱️ Waktu: 20s</div>
+      </div>
 
-    <div class="topic-tabs">
-      <button class="topic-tab active" onclick="setTopic('penjumlahan', this)">➕ Penjumlahan</button>
-      <button class="topic-tab" onclick="setTopic('perkalian', this)">✖️ Perkalian</button>
-      <button class="topic-tab" onclick="setTopic('pecahan', this)">½ Pecahan</button>
-      <button class="topic-tab" onclick="setTopic('persen', this)">% Persen</button>
-    </div>
+      <div class="topic-tabs">
+        <button class="topic-tab active" onclick="setTopic('penjumlahan', this)">➕ Penjumlahan</button>
+        <button class="topic-tab" onclick="setTopic('perkalian', this)">✖️ Perkalian</button>
+        <button class="topic-tab" onclick="setTopic('aljabar', this)">🧮 Aljabar</button>
+        <button class="topic-tab" onclick="setTopic('geometri', this)">⬡ Geometri</button>
+      </div>
 
-    <div class="diff-tabs">
-      <button class="diff-tab active-mudah" onclick="setDiff('mudah', this)">🟢 Mudah</button>
-      <button class="diff-tab" onclick="setDiff('sedang', this)">🟡 Sedang</button>
-      <button class="diff-tab" onclick="setDiff('susah', this)">🔴 Susah</button>
-    </div>
+      <div class="diff-tabs">
+        <button class="diff-tab active-mudah" onclick="setDiff('mudah', this)">🟢 Mudah</button>
+        <button class="diff-tab" onclick="setDiff('sedang', this)">🟡 Sedang</button>
+        <button class="diff-tab" onclick="setDiff('susah', this)">🔴 Susah</button>
+      </div>
 
-    <div class="lat-score-bar">
-      <span>Soal <b id="lat-num">0</b>/<b id="lat-total">5</b></span>
-      <div class="progress-wrap"><div class="progress-fill" id="lat-progress" style="width:0%"></div></div>
-      <span>✅ <b id="lat-correct" style="color:var(--green-border)">0</b></span>
-      <span>❌ <b id="lat-wrong" style="color:var(--red-border)">0</b></span>
-    </div>
+      <div class="timer-bar-wrap">
+        <div class="timer-bar-fill" id="timer-bar"></div>
+      </div>
 
-    <div id="lat-container"></div>
+      <div class="lat-score-bar">
+        <span>Soal <b id="lat-num">0</b>/<b id="lat-total">5</b></span>
+        <div class="progress-wrap"><div class="progress-fill" id="lat-progress"></div></div>
+        <span>✅ <b id="lat-correct" style="color:var(--green-border)">0</b></span>
+        <span>❌ <b id="lat-wrong" style="color:var(--red-border)">0</b></span>
+      </div>
+
+      <div id="lat-container"></div>
+    </div>
   </div>
 
-  <!-- KALKULATOR -->
   <div id="kalkulator" class="section">
     <div class="calc-wrap">
       <div class="calc">
@@ -241,52 +301,56 @@
         <div class="shortcut"><span class="key">( )</span><span class="desc">Gunakan kurung untuk mengubah urutan operasi, misal <b>(2+3)×4</b></span></div>
         <div class="shortcut"><span class="key">AC</span><span class="desc">Hapus semua dan mulai dari awal</span></div>
         <div class="shortcut"><span class="key">÷ ×</span><span class="desc">Perkalian dan pembagian dikerjakan sebelum penjumlahan</span></div>
-        <div class="shortcut"><span class="key">0.5</span><span class="desc">Gunakan titik untuk bilangan desimal</span></div>
       </div>
     </div>
   </div>
 
 </main>
 
-<footer>Dibuat dengan ❤️ untuk belajar matematika · MatDasar 2024</footer>
+<footer>Dibuat dengan ❤️ untuk belajar matematika · MatDasar 2026</footer>
 
 <script>
-// ============ MATERI ============
+// ============ THEME ENGINE (DARK MODE) ============
+function initTheme() {
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+}
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+}
+initTheme();
+
+// ============ REPOSITORY MATERI ============
 const lessons = {
   penjumlahan: {
     title: 'Penjumlahan & Pengurangan',
     items: [
-      { sub: 'Sifat komutatif', formula: 'a + b = b + a', contoh: 'Contoh: 5 + 3 = 3 + 5 = 8. Urutan tidak memengaruhi hasil.' },
-      { sub: 'Sifat asosiatif', formula: '(a + b) + c = a + (b + c)', contoh: 'Contoh: (2 + 3) + 4 = 2 + (3 + 4) = 9' },
-      { sub: 'Pengurangan', formula: 'a − b = a + (−b)', contoh: 'Contoh: 10 − 4 = 6' },
-      { sub: 'Bilangan negatif', formula: 'a + (−b) = a − b', contoh: 'Contoh: 7 + (−3) = 4' },
+      { sub: 'Sifat Komutatif', formula: 'a + b = b + a', contoh: 'Contoh: 5 + 3 = 3 + 5 = 8. Posisi angka tidak mengubah hasil.' },
+      { sub: 'Sifat Asosiatif', formula: '(a + b) + c = a + (b + c)', contoh: 'Contoh: (2 + 3) + 4 = 2 + (3 + 4) = 9' }
     ]
   },
   perkalian: {
     title: 'Perkalian & Pembagian',
     items: [
-      { sub: 'Perkalian berulang', formula: 'a × b = a + a + ... (b kali)', contoh: 'Contoh: 4 × 3 = 4 + 4 + 4 = 12' },
-      { sub: 'Sifat distributif', formula: 'a × (b + c) = (a×b) + (a×c)', contoh: 'Contoh: 3 × (2 + 4) = 6 + 12 = 18' },
-      { sub: 'Hubungan × dan ÷', formula: 'a ÷ b = c  ⟺  c × b = a', contoh: 'Contoh: 12 ÷ 4 = 3 karena 3 × 4 = 12' },
-      { sub: 'Pembagian dengan sisa', formula: 'a = (b × q) + r', contoh: 'Contoh: 17 ÷ 5 → q=3, r=2 karena 17 = (5×3)+2' },
+      { sub: 'Perkalian Berulang', formula: 'a × b = a + a + ... (sebanyak b kali)', contoh: 'Contoh: 4 × 3 = 4 + 4 + 4 = 12' },
+      { sub: 'Hubungan Silang', formula: 'a ÷ b = c  ⟺  c × b = a', contoh: 'Contoh: 15 ÷ 3 = 5 karena 5 × 3 = 15' }
     ]
   },
-  pecahan: {
-    title: 'Pecahan',
+  aljabar: {
+    title: 'Aljabar Dasar',
     items: [
-      { sub: 'Penjumlahan pecahan', formula: 'a/b + c/d = (a×d + c×b) / (b×d)', contoh: 'Contoh: 1/2 + 1/3 = 3/6 + 2/6 = 5/6' },
-      { sub: 'Pengurangan pecahan', formula: 'a/b − c/d = (a×d − c×b) / (b×d)', contoh: 'Contoh: 3/4 − 1/3 = 9/12 − 4/12 = 5/12' },
-      { sub: 'Perkalian pecahan', formula: 'a/b × c/d = (a×c) / (b×d)', contoh: 'Contoh: 2/3 × 3/4 = 6/12 = 1/2' },
-      { sub: 'Penyederhanaan', formula: 'bagi pembilang & penyebut dengan FPB', contoh: 'Contoh: 6/8 → FPB=2 → 3/4' },
+      { sub: 'Variabel & Konstanta', formula: 'ax + b = c', contoh: 'Di mana x adalah variabel (belum diketahui nilainya), a koefisien, dan b & c konstanta.' },
+      { sub: 'Pindah Ruas (Linear)', formula: 'x + a = b  ⟹  x = b − a', contoh: 'Contoh: x + 5 = 12 ⟹ x = 12 − 5 = 7' }
     ]
   },
-  persen: {
-    title: 'Persentase',
+  geometri: {
+    title: 'Geometri Sederhana',
     items: [
-      { sub: 'Persen ke desimal', formula: 'p% = p / 100', contoh: 'Contoh: 25% = 0,25' },
-      { sub: 'Persen dari angka', formula: 'p% dari n = (p/100) × n', contoh: 'Contoh: 20% dari 150 = 30' },
-      { sub: 'Persentase kenaikan', formula: '% naik = ((baru−lama)/lama) × 100', contoh: 'Contoh: 80 → 100 = 25% naik' },
-      { sub: 'Persentase penurunan', formula: '% turun = ((lama−baru)/lama) × 100', contoh: 'Contoh: 200 → 160 = 20% turun' },
+      { sub: 'Luas Persegi Panjang', formula: 'L = p × l', contoh: 'Panjang 8cm, lebar 5cm. Maka Luas = 8 × 5 = 40 cm²' },
+      { sub: 'Keliling Lingkaran', formula: 'K = 2 × π × r', contoh: 'Jari-jari (r) = 7cm. K = 2 × 22/7 × 7 = 44 cm' }
     ]
   }
 };
@@ -294,8 +358,16 @@ const lessons = {
 function showTab(id) {
   document.querySelectorAll('.nav-btn').forEach((btn, i) => btn.classList.toggle('active', ['materi','latihan','kalkulator'][i] === id));
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-  document.getElementById(id).classList.add('active');
-  if (id === 'latihan' && !latStarted) startLat();
+  
+  const targetSection = document.getElementById(id);
+  targetSection.classList.add('active');
+  
+  if (id === 'latihan') {
+    loadStats();
+    if (!latStarted) startLat();
+  } else {
+    clearInterval(timerInterval); // matikan timer jika pindah tab
+  }
 }
 
 function showLesson(key, card) {
@@ -307,127 +379,102 @@ function showLesson(key, card) {
   el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
-// ============ LATIHAN SOAL ============
+// ============ BANK SOAL LATIHAN ============
 const soalBank = {
   penjumlahan: {
     mudah: [
-      { q: '12 + 15 = ?', opts: ['25','27','28','26'], ans: '27', explain: '12 + 15 = 27' },
-      { q: '34 − 11 = ?', opts: ['21','22','23','24'], ans: '23', explain: '34 − 11 = 23' },
-      { q: '8 + 9 = ?', opts: ['15','16','17','18'], ans: '17', explain: '8 + 9 = 17' },
-      { q: '50 − 23 = ?', opts: ['25','26','27','28'], ans: '27', explain: '50 − 23 = 27' },
-      { q: '45 + 30 = ?', opts: ['70','72','75','78'], ans: '75', explain: '45 + 30 = 75' },
-      { q: '100 − 37 = ?', opts: ['60','63','65','67'], ans: '63', explain: '100 − 37 = 63' },
-      { q: '21 + 14 = ?', opts: ['33','34','35','36'], ans: '35', explain: '21 + 14 = 35' },
+      { q: '14 + 15 = ?', opts: ['27','28','29','30'], ans: '29', explain: '14 + 15 = 29' },
+      { q: '45 − 12 = ?', opts: ['31','32','33','34'], ans: '33', explain: '45 − 12 = 33' }
     ],
     sedang: [
-      { q: '248 + 175 = ?', opts: ['413','423','433','443'], ans: '423', explain: '248 + 175 = 423' },
-      { q: '500 − 163 = ?', opts: ['327','337','347','357'], ans: '337', explain: '500 − 163 = 337' },
-      { q: '356 + 289 = ?', opts: ['635','645','655','665'], ans: '645', explain: '356 + 289 = 645' },
-      { q: '1000 − 427 = ?', opts: ['563','573','583','593'], ans: '573', explain: '1000 − 427 = 573' },
-      { q: '(34 + 56) − 28 = ?', opts: ['58','60','62','64'], ans: '62', explain: '34+56=90, lalu 90−28=62' },
-      { q: '127 + 243 + 85 = ?', opts: ['445','455','465','475'], ans: '455', explain: '127+243=370, lalu 370+85=455' },
-      { q: '800 − 345 − 123 = ?', opts: ['322','332','342','352'], ans: '332', explain: '800−345=455, lalu 455−123=332' },
+      { q: '145 + 238 = ?', opts: ['373','383','393','403'], ans: '383', explain: '145 + 238 = 383' },
+      { q: '500 − 167 = ?', opts: ['323','333','343','353'], ans: '333', explain: '500 − 167 = 333' }
     ],
     susah: [
-      { q: 'Nilai x jika x + 48 = 123 adalah...', opts: ['65','70','75','80'], ans: '75', explain: 'x = 123 − 48 = 75' },
-      { q: 'Jumlah tiga bilangan berurutan adalah 75. Bilangan terkecilnya?', opts: ['22','23','24','25'], ans: '24', explain: 'Misal n, n+1, n+2. Maka 3n+3=75 → n=24' },
-      { q: '2345 + 1876 − 987 = ?', opts: ['3224','3234','3244','3254'], ans: '3234', explain: '2345+1876=4221, lalu 4221−987=3234' },
-      { q: 'Selisih dua bilangan adalah 47. Jika bilangan besar = 136, bilangan kecilnya?', opts: ['85','87','89','91'], ans: '89', explain: '136 − 47 = 89' },
-      { q: 'Rata-rata dari 42, 58, 74, dan 66 adalah...', opts: ['58','60','62','64'], ans: '60', explain: '(42+58+74+66)/4 = 240/4 = 60' },
+      { q: '2345 + 1289 − 876 = ?', opts: ['2748','2758','2768','2778'], ans: '2758', explain: '2345 + 1289 = 3634. Kemudian 3634 − 876 = 2758.' }
     ]
   },
   perkalian: {
     mudah: [
-      { q: '6 × 7 = ?', opts: ['40','42','44','46'], ans: '42', explain: '6 × 7 = 42' },
-      { q: '48 ÷ 6 = ?', opts: ['6','7','8','9'], ans: '8', explain: '48 ÷ 6 = 8 karena 8 × 6 = 48' },
-      { q: '9 × 5 = ?', opts: ['40','43','45','47'], ans: '45', explain: '9 × 5 = 45' },
-      { q: '35 ÷ 7 = ?', opts: ['3','4','5','6'], ans: '5', explain: '35 ÷ 7 = 5 karena 5 × 7 = 35' },
-      { q: '8 × 8 = ?', opts: ['60','62','64','66'], ans: '64', explain: '8 × 8 = 64' },
-      { q: '72 ÷ 9 = ?', opts: ['6','7','8','9'], ans: '8', explain: '72 ÷ 9 = 8 karena 8 × 9 = 72' },
-      { q: '4 × 12 = ?', opts: ['44','46','48','50'], ans: '48', explain: '4 × 12 = 48' },
+      { q: '7 × 8 = ?', opts: ['54','56','58','60'], ans: '56', explain: '7 × 8 = 56' },
+      { q: '63 ÷ 9 = ?', opts: ['6','7','8','9'], ans: '7', explain: '63 ÷ 9 = 7' }
     ],
     sedang: [
-      { q: '24 × 15 = ?', opts: ['340','350','360','370'], ans: '360', explain: '24 × 15 = 24 × 10 + 24 × 5 = 240 + 120 = 360' },
-      { q: '288 ÷ 12 = ?', opts: ['22','24','26','28'], ans: '24', explain: '288 ÷ 12 = 24 karena 24 × 12 = 288' },
-      { q: '35 × 12 = ?', opts: ['400','410','420','430'], ans: '420', explain: '35 × 12 = 35 × 10 + 35 × 2 = 350 + 70 = 420' },
-      { q: '3 × (25 + 15) = ?', opts: ['100','110','120','130'], ans: '120', explain: '25+15=40, lalu 3×40=120' },
-      { q: '144 ÷ 12 = ?', opts: ['10','11','12','13'], ans: '12', explain: '144 ÷ 12 = 12' },
-      { q: '18 × 25 = ?', opts: ['420','430','440','450'], ans: '450', explain: '18 × 25 = 18 × 100/4 = 1800/4 = 450' },
+      { q: '14 × 15 = ?', opts: ['190','200','210','220'], ans: '210', explain: '14 × 15 = 210' },
+      { q: '180 ÷ 12 = ?', opts: ['13','14','15','16'], ans: '15', explain: '180 ÷ 12 = 15' }
     ],
     susah: [
-      { q: 'Nilai x jika 8x = 216 adalah...', opts: ['24','26','27','28'], ans: '27', explain: 'x = 216 ÷ 8 = 27' },
-      { q: '125 × 16 = ?', opts: ['1900','1950','2000','2050'], ans: '2000', explain: '125 × 16 = 125 × 8 × 2 = 1000 × 2 = 2000' },
-      { q: 'Sebuah persegi panjang panjang 24 cm dan lebar 15 cm. Luasnya?', opts: ['340 cm²','350 cm²','360 cm²','370 cm²'], ans: '360 cm²', explain: 'Luas = 24 × 15 = 360 cm²' },
-      { q: '(12 × 15) ÷ (9 × 5) = ?', opts: ['2','3','4','5'], ans: '4', explain: '12×15=180, 9×5=45, 180÷45=4' },
-      { q: 'Sisa dari 247 ÷ 8 adalah...', opts: ['5','6','7','8'], ans: '7', explain: '247 = 8×30 + 7, jadi sisa = 7' },
+      { q: '(24 × 12) ÷ (18 ÷ 3) = ?', opts: ['44','46','48','50'], ans: '48', explain: '(288) ÷ (6) = 48' }
     ]
   },
-  pecahan: {
+  aljabar: {
     mudah: [
-      { q: '1/2 + 1/4 = ?', opts: ['2/6','3/4','2/4','3/6'], ans: '3/4', explain: '1/2 = 2/4, jadi 2/4 + 1/4 = 3/4' },
-      { q: '3/4 − 1/4 = ?', opts: ['1/2','2/4','1/4','2/8'], ans: '1/2', explain: '3/4 − 1/4 = 2/4 = 1/2' },
-      { q: 'Bentuk sederhana 4/8 adalah...', opts: ['1/4','1/3','1/2','2/3'], ans: '1/2', explain: 'FPB(4,8)=4, jadi 4/8 = 1/2' },
-      { q: '2/3 × 3/4 = ?', opts: ['5/7','6/12','1/2','5/12'], ans: '1/2', explain: '(2×3)/(3×4) = 6/12 = 1/2' },
-      { q: '1/3 + 1/3 = ?', opts: ['1/6','2/3','2/6','1/3'], ans: '2/3', explain: '1/3 + 1/3 = 2/3' },
-      { q: 'Bentuk sederhana 6/9 adalah...', opts: ['1/3','2/3','3/4','1/2'], ans: '2/3', explain: 'FPB(6,9)=3, jadi 6/9 = 2/3' },
+      { q: 'Tentukan nilai x jika x + 7 = 19', opts: ['11','12','13','14'], ans: '12', explain: 'x = 19 − 7 = 12' },
+      { q: 'Tentukan nilai a jika 3a = 24', opts: ['6','7','8','9'], ans: '8', explain: 'a = 24 ÷ 3 = 8' }
     ],
     sedang: [
-      { q: '2/3 + 3/4 = ?', opts: ['5/7','17/12','5/12','8/12'], ans: '17/12', explain: '(2×4 + 3×3)/(3×4) = (8+9)/12 = 17/12' },
-      { q: '5/6 − 1/4 = ?', opts: ['4/2','7/12','4/12','7/10'], ans: '7/12', explain: '(5×4 − 1×6)/24 = (20−6)/24 = 14/24 = 7/12' },
-      { q: '3/5 × 10/9 = ?', opts: ['1/3','2/3','1/2','2/5'], ans: '2/3', explain: '(3×10)/(5×9) = 30/45 = 2/3' },
-      { q: '(1/2 + 1/3) × 6 = ?', opts: ['3','4','5','6'], ans: '5', explain: '1/2+1/3=5/6, lalu 5/6×6=5' },
-      { q: 'Mana yang lebih besar: 3/5 atau 4/7?', opts: ['3/5','4/7','sama besar','tidak bisa dibanding'], ans: '3/5', explain: '3/5=21/35 dan 4/7=20/35, jadi 3/5 > 4/7' },
+      { q: 'Tentukan nilai x jika 2x + 5 = 17', opts: ['5','6','7','8'], ans: '6', explain: '2x = 17 − 5 ⟹ 2x = 12 ⟹ x = 6' },
+      { q: 'Jika 4x − 3 = 21, berapakah nilai x?', opts: ['5','6','7','8'], ans: '6', explain: '4x = 21 + 3 ⟹ 4x = 24 ⟹ x = 6' }
     ],
     susah: [
-      { q: '2/3 ÷ 4/9 = ?', opts: ['1','3/2','8/27','6/4'], ans: '3/2', explain: '2/3 ÷ 4/9 = 2/3 × 9/4 = 18/12 = 3/2' },
-      { q: 'Jika 3/4 dari x = 18, maka x = ?', opts: ['20','22','24','26'], ans: '24', explain: 'x = 18 × 4/3 = 72/3 = 24' },
-      { q: '1/2 + 1/3 + 1/6 = ?', opts: ['2/3','5/6','1','7/6'], ans: '1', explain: 'KPK=6: 3/6+2/6+1/6=6/6=1' },
-      { q: 'Urutan dari kecil ke besar: 2/3, 3/4, 5/8', opts: ['2/3, 3/4, 5/8','5/8, 2/3, 3/4','3/4, 2/3, 5/8','5/8, 3/4, 2/3'], ans: '5/8, 2/3, 3/4', explain: 'KPK=24: 5/8=15/24, 2/3=16/24, 3/4=18/24 → 15<16<18' },
-      { q: 'Nilai 2½ + 1¾ = ?', opts: ['3¾','4¼','4½','3½'], ans: '4¼', explain: '2½=10/4, 1¾=7/4, total=17/4=4¼' },
+      { q: 'Selesaikan nilai y dari persamaan: 3(y + 2) = 2y + 14', opts: ['6','7','8','9'], ans: '8', explain: 'Jabarkan: 3y + 6 = 2y + 14 ⟹ 3y − 2y = 14 − 6 ⟹ y = 8' }
     ]
   },
-  persen: {
+  geometri: {
     mudah: [
-      { q: '10% dari 200 adalah...', opts: ['15','20','25','30'], ans: '20', explain: '10/100 × 200 = 20' },
-      { q: '50% dari 80 adalah...', opts: ['30','35','40','45'], ans: '40', explain: '50/100 × 80 = 40' },
-      { q: '25% = ... (desimal)', opts: ['0,20','0,25','0,30','0,50'], ans: '0,25', explain: '25/100 = 0,25' },
-      { q: '0,75 = ...%', opts: ['55%','65%','75%','85%'], ans: '75%', explain: '0,75 × 100 = 75%' },
-      { q: '5% dari 300 adalah...', opts: ['10','15','20','25'], ans: '15', explain: '5/100 × 300 = 15' },
-      { q: '1/4 = ...%', opts: ['20%','25%','30%','35%'], ans: '25%', explain: '1/4 × 100 = 25%' },
+      { q: 'Luas persegi dengan sisi 6 cm adalah...', opts: ['24 cm²','30 cm²','36 cm²','42 cm²'], ans: '36 cm²', explain: 'Luas = Sisi × Sisi = 6 × 6 = 36 cm²' },
+      { q: 'Keliling persegi panjang dengan panjang 5cm dan lebar 3cm adalah...', opts: ['15cm','16cm','18cm','20cm'], ans: '16cm', explain: 'Keliling = 2 × (p + l) = 2 × (5 + 3) = 16 cm' }
     ],
     sedang: [
-      { q: 'Harga baju Rp80.000, diskon 25%. Harga setelah diskon?', opts: ['Rp55.000','Rp60.000','Rp65.000','Rp70.000'], ans: 'Rp60.000', explain: 'Diskon = 25% × 80.000 = 20.000. Harga = 80.000 − 20.000 = 60.000' },
-      { q: 'Nilai ujian naik dari 60 ke 75. Kenaikannya berapa persen?', opts: ['20%','25%','30%','35%'], ans: '25%', explain: '(75−60)/60 × 100 = 15/60 × 100 = 25%' },
-      { q: '35% dari 460 adalah...', opts: ['151','161','171','181'], ans: '161', explain: '35/100 × 460 = 161' },
-      { q: 'Harga setelah PPN 11% dari Rp200.000 adalah...', opts: ['Rp218.000','Rp220.000','Rp222.000','Rp224.000'], ans: 'Rp222.000', explain: 'PPN = 11% × 200.000 = 22.000. Total = 222.000' },
-      { q: 'Tabungan Rp500.000 berbunga 6% per tahun. Bunga 1 tahun?', opts: ['Rp25.000','Rp30.000','Rp35.000','Rp40.000'], ans: 'Rp30.000', explain: '6/100 × 500.000 = 30.000' },
+      { q: 'Luas segitiga ber-alas 10 cm dan tinggi 8 cm adalah...', opts: ['35 cm²','40 cm²','45 cm²','50 cm²'], ans: '40 cm²', explain: 'Luas = (Alas × Tinggi) ÷ 2 = (10 × 8) ÷ 2 = 40 cm²' },
+      { q: 'Volume kubus dengan panjang rusuk 5 cm adalah...', opts: ['100 cm³','120 cm³','125 cm³','150 cm³'], ans: '125 cm³', explain: 'Volume = r³ = 5 × 5 × 5 = 125 cm³' }
     ],
     susah: [
-      { q: 'Harga asli Rp120.000 setelah diskon 15%. Harga jadi?', opts: ['Rp98.000','Rp100.000','Rp102.000','Rp104.000'], ans: 'Rp102.000', explain: 'Diskon = 15% × 120.000 = 18.000. Harga = 120.000 − 18.000 = 102.000' },
-      { q: 'Setelah diskon 20%, harga barang Rp96.000. Harga aslinya?', opts: ['Rp112.000','Rp116.000','Rp120.000','Rp124.000'], ans: 'Rp120.000', explain: 'Harga asli = 96.000 / 0,8 = 120.000' },
-      { q: 'Penjualan naik 30%, lalu turun 20%. Perubahan total?', opts: ['naik 4%','naik 6%','naik 8%','naik 10%'], ans: 'naik 4%', explain: '1,30 × 0,80 = 1,04 → naik 4%' },
-      { q: 'Siswa lulus 85%, gagal 18 orang. Total siswa?', opts: ['100','110','120','130'], ans: '120', explain: 'Gagal = 15% → 18 orang. Total = 18/0,15 = 120' },
-      { q: 'Modal Rp200.000, untung 35%. Harga jual?', opts: ['Rp255.000','Rp265.000','Rp270.000','Rp275.000'], ans: 'Rp270.000', explain: 'Untung = 35% × 200.000 = 70.000. Jual = 200.000 + 70.000 = 270.000' },
+      { q: 'Sebuah balok memiliki volume 240 cm³. Jika panjang 10cm dan lebar 6cm, berapakah tingginya?', opts: ['3cm','4cm','5cm','6cm'], ans: '4cm', explain: 'Volume = p × l × t ⟹ 240 = 10 × 6 × t ⟹ 240 = 60t ⟹ t = 4cm' }
     ]
   }
 };
 
 let curTopic = 'penjumlahan', curDiff = 'mudah';
 let latIdx = 0, latCorrect = 0, latWrong = 0, latPool = [], latStarted = false;
+let currentStreak = 0, highScore = 0;
+
+// TIMER VARIABLES
+let timeLeft = 20;
+let timerInterval = null;
+const TIME_LIMIT = 20;
+
+function loadStats() {
+  const scoreKey = `highscore_${curTopic}_${curDiff}`;
+  highScore = parseInt(localStorage.getItem(scoreKey)) || 0;
+  currentStreak = parseInt(localStorage.getItem('streak')) || 0;
+  
+  document.getElementById('stat-highscore').textContent = `${highScore}/5`;
+  document.getElementById('stat-streak').textContent = currentStreak;
+}
+
+function saveStats(finalCorrect) {
+  const scoreKey = `highscore_${curTopic}_${curDiff}`;
+  if (finalCorrect > highScore) {
+    highScore = finalCorrect;
+    localStorage.setItem(scoreKey, highScore);
+  }
+  document.getElementById('stat-highscore').textContent = `${highScore}/5`;
+}
 
 function setTopic(t, btn) {
   curTopic = t;
   document.querySelectorAll('.topic-tab').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
+  loadStats();
   startLat();
 }
 
 function setDiff(d, btn) {
   curDiff = d;
-  document.querySelectorAll('.diff-tab').forEach(b => {
-    b.classList.remove('active-mudah','active-sedang','active-susah');
-  });
+  document.querySelectorAll('.diff-tab').forEach(b => b.classList.remove('active-mudah','active-sedang','active-susah'));
   btn.classList.add('active-' + d);
+  loadStats();
   startLat();
 }
 
@@ -436,38 +483,107 @@ function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5); }
 function startLat() {
   latStarted = true;
   latIdx = 0; latCorrect = 0; latWrong = 0;
-  latPool = shuffle(soalBank[curTopic][curDiff]).slice(0, 5);
+  
+  // Mengambil max 5 soal acak dari bank soal
+  const source = soalBank[curTopic][curDiff] || [];
+  latPool = shuffle(source).slice(0, 5);
+  
   updateLatScore();
   renderLat();
 }
 
+// ARSITEKTUR TIMER ENGINE
+function startTimer() {
+  clearInterval(timerInterval);
+  timeLeft = TIME_LIMIT;
+  updateTimerUI();
+  
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    updateTimerUI();
+    
+    if (timeLeft <= 0) {
+      clearInterval(timerInterval);
+      timeOutHandler();
+    }
+  }, 1000);
+}
+
+function updateTimerUI() {
+  const td = document.getElementById('timer-display');
+  const tb = document.getElementById('timer-bar');
+  
+  td.textContent = `⏱️ Waktu: ${timeLeft}s`;
+  
+  const percentage = (timeLeft / TIME_LIMIT) * 100;
+  tb.style.width = percentage + '%';
+  
+  if (timeLeft <= 5) {
+    td.classList.add('warning');
+    tb.classList.add('warning');
+  } else {
+    td.classList.remove('warning');
+    tb.classList.remove('warning');
+  }
+}
+
+function timeOutHandler() {
+  // Jika waktu habis, anggap jawaban salah secara otomatis
+  document.querySelectorAll('.quiz-opt').forEach(b => b.classList.add('disabled'));
+  
+  const currentQuestion = latPool[latIdx];
+  document.querySelectorAll('.quiz-opt').forEach(b => {
+    if (b.textContent === currentQuestion.ans) b.classList.add('correct');
+  });
+  
+  latWrong++;
+  currentStreak = 0;
+  localStorage.setItem('streak', currentStreak);
+  document.getElementById('stat-streak').textContent = currentStreak;
+  
+  latIdx++;
+  updateLatScore();
+  
+  const eb = document.getElementById('explain-box');
+  eb.textContent = '⏰ Waktu Habis! ' + currentQuestion.explain;
+  eb.style.display = 'block';
+  document.getElementById('lat-actions').style.display = 'flex';
+}
+
 function renderLat() {
   const c = document.getElementById('lat-container');
-  if (latIdx >= latPool.length) {
-    const pct = Math.round((latCorrect / latPool.length) * 100);
+  clearInterval(timerInterval);
+  
+  // Reset bar timer visual ke penuh sebelum soal di-render
+  document.getElementById('timer-bar').style.width = '100%';
+
+  if (latIdx >= latPool.length || latPool.length === 0) {
+    const pct = latPool.length > 0 ? Math.round((latCorrect / latPool.length) * 100) : 0;
     const emoji = pct === 100 ? '🏆' : pct >= 60 ? '🎉' : '💪';
-    const msg = pct === 100 ? 'Sempurna! Semua benar!' : pct >= 60 ? 'Bagus! Terus berlatih ya.' : 'Jangan menyerah, coba lagi!';
-    const diffLabel = { mudah: '🟢 Mudah', sedang: '🟡 Sedang', susah: '🔴 Susah' }[curDiff];
+    const msg = pct === 100 ? 'Luar biasa! Skor Sempurna!' : pct >= 60 ? 'Hebat! Pertahankan performamu.' : 'Belajar lagi yuk, pasti bisa!';
+    
+    saveStats(latCorrect);
+
     c.innerHTML = `<div class="result-card">
       <div class="result-emoji">${emoji}</div>
-      <h2>Latihan selesai!</h2>
+      <h2>Latihan Selesai!</h2>
       <div class="result-score">${latCorrect}/${latPool.length}</div>
-      <p>${msg}<br><small style="color:var(--text-hint)">Topik: ${curTopic} · Tingkat: ${diffLabel}</small></p>
+      <p>${msg}</p>
       <div style="margin-top:20px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
-        <button class="btn btn-primary" onclick="startLat()">Ulangi ↺</button>
-        <button class="btn" onclick="nextDiff()">Tingkat berikutnya →</button>
-        <button class="btn" onclick="showTab('materi')">Pelajari Materi 📖</button>
+        <button class="btn btn-primary" onclick="startLat()">Coba Lagi ↺</button>
+        <button class="btn" onclick="showTab('materi')">Baca Materi 📖</button>
       </div>
     </div>`;
     return;
   }
+  
   const q = latPool[latIdx];
-  const diffClass = curDiff;
   const diffLabel = { mudah: '🟢 Mudah', sedang: '🟡 Sedang', susah: '🔴 Susah' }[curDiff];
+  
   c.innerHTML = `<div class="quiz-card">
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+    <div style="display:flex;align-items:center;justify-content:space-between;">
       <div class="quiz-num">Soal ${latIdx+1} dari ${latPool.length}</div>
-      <span class="diff-badge ${diffClass}">${diffLabel}</span>
+      <span class="diff-badge ${curDiff}">${diffLabel}</span>
     </div>
     <div class="quiz-q">${q.q}</div>
     <div class="quiz-opts">
@@ -475,21 +591,34 @@ function renderLat() {
     </div>
     <div class="explain-box" id="explain-box"></div>
     <div class="quiz-actions" id="lat-actions" style="display:none">
-      <button class="btn btn-primary" onclick="nextLat()">Soal berikutnya →</button>
+      <button class="btn btn-primary" onclick="nextLat()">Lanjut →</button>
     </div>
   </div>`;
+  
+  startTimer();
 }
 
 function checkLat(btn, selected, ans, explain) {
+  clearInterval(timerInterval);
   document.querySelectorAll('.quiz-opt').forEach(b => b.classList.add('disabled'));
-  if (selected === ans) { btn.classList.add('correct'); latCorrect++; }
-  else {
+  
+  if (selected === ans) { 
+    btn.classList.add('correct'); 
+    latCorrect++; 
+    currentStreak++;
+  } else {
     btn.classList.add('wrong');
     document.querySelectorAll('.quiz-opt').forEach(b => { if (b.textContent === ans) b.classList.add('correct'); });
     latWrong++;
+    currentStreak = 0;
   }
+  
+  localStorage.setItem('streak', currentStreak);
+  document.getElementById('stat-streak').textContent = currentStreak;
+
   latIdx++;
   updateLatScore();
+  
   const eb = document.getElementById('explain-box');
   eb.textContent = '💡 ' + explain;
   eb.style.display = 'block';
@@ -498,29 +627,17 @@ function checkLat(btn, selected, ans, explain) {
 
 function nextLat() { renderLat(); }
 
-function nextDiff() {
-  const order = ['mudah','sedang','susah'];
-  const next = order[order.indexOf(curDiff) + 1];
-  if (next) {
-    curDiff = next;
-    document.querySelectorAll('.diff-tab').forEach((b, i) => {
-      b.classList.remove('active-mudah','active-sedang','active-susah');
-      if (['mudah','sedang','susah'][i] === next) b.classList.add('active-' + next);
-    });
-    startLat();
-  }
-}
-
 function updateLatScore() {
   document.getElementById('lat-num').textContent = latIdx;
-  document.getElementById('lat-total').textContent = latPool.length || 5;
+  document.getElementById('lat-total').textContent = latPool.length;
   document.getElementById('lat-correct').textContent = latCorrect;
   document.getElementById('lat-wrong').textContent = latWrong;
+  
   const total = latPool.length || 5;
   document.getElementById('lat-progress').style.width = (latIdx / total * 100) + '%';
 }
 
-// ============ KALKULATOR ============
+// ============ ENGINE KALKULATOR ============
 let calcExpr = '';
 function calcInput(v) {
   calcExpr += v;
