@@ -9,345 +9,103 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&family=JetBrains+Mono&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #F8F7F4;
-      --surface: #FFFFFF;
-      --surface2: #F1EFE8;
-      --border: rgba(0,0,0,0.1);
-      --border-md: rgba(0,0,0,0.18);
-      --text: #1A1A18;
-      --text-muted: #6B6A65;
-      --text-hint: #9B9A95;
-      --purple: #7F77DD;
-      --purple-dark: #534AB7;
-      --purple-light: #EEEDFE;
-      --green-bg: #EAF3DE;
-      --green-border: #3B6D11;
-      --green-text: #27500A;
-      --red-bg: #FCEBEB;
-      --red-border: #A32D2D;
-      --red-text: #791F1F;
-      --radius: 10px;
-      --radius-lg: 14px;
+      --bg: #F8F7F4; --surface: #FFFFFF; --surface2: #F1EFE8;
+      --border: rgba(0,0,0,0.1); --border-md: rgba(0,0,0,0.18);
+      --text: #1A1A18; --text-muted: #6B6A65; --text-hint: #9B9A95;
+      --purple: #7F77DD; --purple-dark: #534AB7; --purple-light: #EEEDFE;
+      --green-bg: #EAF3DE; --green-border: #3B6D11; --green-text: #27500A;
+      --red-bg: #FCEBEB; --red-border: #A32D2D; --red-text: #791F1F;
+      --amber-bg: #FAEEDA; --amber-border: #854F0B; --amber-text: #633806;
+      --radius: 10px; --radius-lg: 14px;
     }
-
-    body {
-      font-family: 'Plus Jakarta Sans', sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-    }
-
-    header {
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      padding: 0 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 56px;
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 16px;
-      font-weight: 600;
-      color: var(--text);
-      text-decoration: none;
-    }
-
-    .logo-icon {
-      width: 32px;
-      height: 32px;
-      background: var(--purple);
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-    }
-
-    nav {
-      display: flex;
-      gap: 4px;
-    }
-
-    .nav-btn {
-      padding: 6px 14px;
-      border-radius: var(--radius);
-      border: none;
-      background: transparent;
-      font-family: inherit;
-      font-size: 14px;
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all 0.15s;
-      font-weight: 400;
-    }
-
+    body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+    header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 56px; position: sticky; top: 0; z-index: 10; }
+    .logo { display: flex; align-items: center; gap: 10px; font-size: 16px; font-weight: 600; color: var(--text); text-decoration: none; }
+    .logo-icon { width: 32px; height: 32px; background: var(--purple); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
+    nav { display: flex; gap: 4px; }
+    .nav-btn { padding: 6px 14px; border-radius: var(--radius); border: none; background: transparent; font-family: inherit; font-size: 14px; color: var(--text-muted); cursor: pointer; transition: all 0.15s; font-weight: 400; }
     .nav-btn:hover { background: var(--surface2); color: var(--text); }
     .nav-btn.active { background: var(--purple-light); color: var(--purple-dark); font-weight: 500; }
-
-    main {
-      max-width: 760px;
-      margin: 0 auto;
-      padding: 32px 24px 60px;
-    }
-
-    .hero {
-      text-align: center;
-      padding: 40px 0 32px;
-    }
-
-    .hero-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--purple-light);
-      color: var(--purple-dark);
-      font-size: 13px;
-      font-weight: 500;
-      padding: 5px 14px;
-      border-radius: 999px;
-      margin-bottom: 16px;
-    }
-
-    .hero h1 {
-      font-size: 36px;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 10px;
-      line-height: 1.25;
-    }
-
-    .hero p {
-      color: var(--text-muted);
-      font-size: 16px;
-      max-width: 420px;
-      margin: 0 auto;
-      line-height: 1.7;
-    }
-
+    main { max-width: 760px; margin: 0 auto; padding: 32px 24px 60px; }
+    .hero { text-align: center; padding: 40px 0 32px; }
+    .hero-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--purple-light); color: var(--purple-dark); font-size: 13px; font-weight: 500; padding: 5px 14px; border-radius: 999px; margin-bottom: 16px; }
+    .hero h1 { font-size: 36px; font-weight: 600; color: var(--text); margin-bottom: 10px; line-height: 1.25; }
+    .hero p { color: var(--text-muted); font-size: 16px; max-width: 420px; margin: 0 auto; line-height: 1.7; }
     .section { display: none; }
     .section.active { display: block; }
 
-    /* === MATERI === */
-    .topic-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 12px;
-      margin-bottom: 24px;
-    }
-
-    .topic-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 18px;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .topic-card:hover {
-      border-color: var(--purple);
-      box-shadow: 0 0 0 3px rgba(127,119,221,0.12);
-    }
-
+    /* MATERI */
+    .topic-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 24px; }
+    .topic-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px; cursor: pointer; transition: all 0.15s; }
+    .topic-card:hover { border-color: var(--purple); box-shadow: 0 0 0 3px rgba(127,119,221,0.12); }
     .topic-card.selected { border-color: var(--purple); background: var(--purple-light); }
-
     .topic-icon { font-size: 26px; margin-bottom: 10px; display: block; }
-
-    .topic-card h3 {
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 4px;
-    }
-
+    .topic-card h3 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
     .topic-card p { font-size: 12px; color: var(--text-muted); line-height: 1.5; }
-
-    .lesson-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 22px;
-      margin-bottom: 12px;
-      animation: fadeIn 0.2s ease;
-    }
-
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
-
-    .lesson-box h2 {
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--text);
-      margin-bottom: 18px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border);
-    }
-
+    .lesson-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px; margin-bottom: 12px; animation: fadeIn 0.2s ease; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:translateY(0); } }
+    .lesson-box h2 { font-size: 18px; font-weight: 600; color: var(--text); margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
     .lesson-item { margin-bottom: 18px; }
     .lesson-item:last-child { margin-bottom: 0; }
+    .lesson-sub { font-size: 12px; font-weight: 500; color: var(--purple-dark); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; }
+    .formula { background: var(--surface2); border-left: 3px solid var(--purple); border-radius: 0 var(--radius) var(--radius) 0; padding: 10px 14px; font-family: 'JetBrains Mono', monospace; font-size: 14px; color: var(--text); margin-bottom: 6px; }
+    .example { font-size: 14px; color: var(--text-muted); line-height: 1.7; padding-left: 4px; }
 
-    .lesson-sub {
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--purple-dark);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 6px;
-    }
+    /* LATIHAN */
+    .latihan-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; flex-wrap: wrap; gap: 10px; }
+    .latihan-header h2 { font-size: 18px; font-weight: 600; }
+    .topic-tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px; }
+    .topic-tab { padding: 6px 14px; border-radius: 999px; border: 1px solid var(--border-md); background: var(--surface); font-family: inherit; font-size: 13px; color: var(--text-muted); cursor: pointer; transition: all 0.15s; font-weight: 400; }
+    .topic-tab:hover { background: var(--surface2); }
+    .topic-tab.active { background: var(--purple); color: #fff; border-color: var(--purple-dark); font-weight: 500; }
+    .diff-tabs { display: flex; gap: 6px; margin-bottom: 20px; }
+    .diff-tab { padding: 5px 14px; border-radius: 999px; border: 1px solid var(--border-md); background: var(--surface); font-family: inherit; font-size: 13px; cursor: pointer; transition: all 0.15s; font-weight: 400; color: var(--text-muted); }
+    .diff-tab:hover { background: var(--surface2); }
+    .diff-tab.active-mudah { background: var(--green-bg); color: var(--green-text); border-color: var(--green-border); font-weight: 500; }
+    .diff-tab.active-sedang { background: var(--amber-bg); color: var(--amber-text); border-color: var(--amber-border); font-weight: 500; }
+    .diff-tab.active-susah { background: var(--red-bg); color: var(--red-text); border-color: var(--red-border); font-weight: 500; }
+    .diff-badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 9px; border-radius: 999px; margin-bottom: 8px; }
+    .diff-badge.mudah { background: var(--green-bg); color: var(--green-text); }
+    .diff-badge.sedang { background: var(--amber-bg); color: var(--amber-text); }
+    .diff-badge.susah { background: var(--red-bg); color: var(--red-text); }
 
-    .formula {
-      background: var(--surface2);
-      border-left: 3px solid var(--purple);
-      border-radius: 0 var(--radius) var(--radius) 0;
-      padding: 10px 14px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 14px;
-      color: var(--text);
-      margin-bottom: 6px;
-    }
-
-    .example {
-      font-size: 14px;
-      color: var(--text-muted);
-      line-height: 1.7;
-      padding-left: 4px;
-    }
-
-    /* === KUIS === */
-    .score-bar {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 12px 16px;
-      font-size: 14px;
-      color: var(--text-muted);
-      display: flex;
-      gap: 20px;
-      margin-bottom: 16px;
-      align-items: center;
-    }
-
-    .score-bar span b { color: var(--text); }
-
-    .progress-wrap { flex: 1; background: var(--surface2); border-radius: 999px; height: 6px; overflow: hidden; }
+    .lat-score-bar { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; font-size: 14px; color: var(--text-muted); display: flex; gap: 20px; margin-bottom: 16px; align-items: center; flex-wrap: wrap; }
+    .lat-score-bar span b { color: var(--text); }
+    .progress-wrap { flex: 1; min-width: 80px; background: var(--surface2); border-radius: 999px; height: 6px; overflow: hidden; }
     .progress-fill { height: 100%; background: var(--purple); border-radius: 999px; transition: width 0.3s ease; }
 
-    .quiz-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 22px;
-      animation: fadeIn 0.2s ease;
-    }
-
+    .quiz-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 22px; animation: fadeIn 0.2s ease; }
     .quiz-num { font-size: 12px; color: var(--text-hint); font-weight: 500; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.06em; }
     .quiz-q { font-size: 17px; font-weight: 500; color: var(--text); margin-bottom: 18px; line-height: 1.5; }
-
     .quiz-opts { display: flex; flex-direction: column; gap: 8px; }
-
-    .quiz-opt {
-      padding: 11px 16px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border-md);
-      background: var(--bg);
-      cursor: pointer;
-      font-size: 15px;
-      text-align: left;
-      transition: all 0.15s;
-      color: var(--text);
-      font-family: inherit;
-      font-weight: 400;
-    }
-
+    .quiz-opt { padding: 11px 16px; border-radius: var(--radius); border: 1px solid var(--border-md); background: var(--bg); cursor: pointer; font-size: 15px; text-align: left; transition: all 0.15s; color: var(--text); font-family: inherit; font-weight: 400; }
     .quiz-opt:hover:not(.disabled) { background: var(--purple-light); border-color: var(--purple); }
     .quiz-opt.correct { background: var(--green-bg); border-color: var(--green-border); color: var(--green-text); }
     .quiz-opt.wrong { background: var(--red-bg); border-color: var(--red-border); color: var(--red-text); }
     .quiz-opt.disabled { pointer-events: none; }
-
+    .explain-box { margin-top: 14px; background: var(--surface2); border-radius: var(--radius); padding: 12px 14px; font-size: 14px; color: var(--text-muted); line-height: 1.7; border-left: 3px solid var(--purple); display: none; }
     .quiz-actions { display: flex; gap: 10px; margin-top: 16px; }
 
-    .btn {
-      padding: 9px 20px;
-      border-radius: var(--radius);
-      border: 1px solid var(--border-md);
-      background: var(--surface);
-      font-family: inherit;
-      font-size: 14px;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.15s;
-      color: var(--text);
-    }
-
+    .btn { padding: 9px 20px; border-radius: var(--radius); border: 1px solid var(--border-md); background: var(--surface); font-family: inherit; font-size: 14px; font-weight: 500; cursor: pointer; transition: all 0.15s; color: var(--text); }
     .btn:hover { background: var(--surface2); }
     .btn-primary { background: var(--purple); color: #fff; border-color: var(--purple-dark); }
     .btn-primary:hover { background: var(--purple-dark); }
 
-    .result-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 32px;
-      text-align: center;
-      animation: fadeIn 0.3s ease;
-    }
-
+    .result-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 32px; text-align: center; animation: fadeIn 0.3s ease; }
     .result-emoji { font-size: 48px; margin-bottom: 12px; }
     .result-card h2 { font-size: 22px; font-weight: 600; margin-bottom: 8px; }
     .result-card p { color: var(--text-muted); font-size: 15px; line-height: 1.7; }
     .result-score { font-size: 40px; font-weight: 600; color: var(--purple); margin: 16px 0 8px; }
 
-    /* === KALKULATOR === */
+    /* KALKULATOR */
     .calc-wrap { display: flex; gap: 24px; align-items: flex-start; flex-wrap: wrap; }
-
-    .calc {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 18px;
-      width: 300px;
-      flex-shrink: 0;
-    }
-
-    .calc-display {
-      background: var(--surface2);
-      border-radius: var(--radius);
-      padding: 14px 16px;
-      text-align: right;
-      margin-bottom: 14px;
-      min-height: 70px;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-    }
-
+    .calc { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 18px; width: 300px; flex-shrink: 0; }
+    .calc-display { background: var(--surface2); border-radius: var(--radius); padding: 14px 16px; text-align: right; margin-bottom: 14px; min-height: 70px; display: flex; flex-direction: column; justify-content: flex-end; }
     .calc-expr { font-size: 13px; color: var(--text-hint); min-height: 18px; font-family: 'JetBrains Mono', monospace; }
     .calc-result { font-size: 30px; font-weight: 600; color: var(--text); font-family: 'JetBrains Mono', monospace; }
-
     .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; }
-
-    .calc-btn {
-      padding: 14px 0;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: var(--bg);
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: 400;
-      color: var(--text);
-      transition: all 0.1s;
-      font-family: 'JetBrains Mono', monospace;
-    }
-
+    .calc-btn { padding: 14px 0; border-radius: var(--radius); border: 1px solid var(--border); background: var(--bg); cursor: pointer; font-size: 16px; font-weight: 400; color: var(--text); transition: all 0.1s; font-family: 'JetBrains Mono', monospace; }
     .calc-btn:hover { background: var(--surface2); }
     .calc-btn:active { transform: scale(0.95); }
     .calc-btn.op { color: var(--purple-dark); font-weight: 600; background: var(--purple-light); border-color: rgba(127,119,221,0.3); }
@@ -355,40 +113,18 @@
     .calc-btn.eq { background: var(--purple); color: #fff; border-color: var(--purple-dark); }
     .calc-btn.eq:hover { background: var(--purple-dark); }
     .calc-btn.clr { color: #D85A30; }
-
-    .calc-info {
-      flex: 1;
-      min-width: 200px;
-    }
-
+    .calc-info { flex: 1; min-width: 200px; }
     .calc-info h3 { font-size: 15px; font-weight: 600; margin-bottom: 12px; }
-
-    .shortcut {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 13px;
-    }
-
+    .shortcut { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
     .shortcut:last-child { border-bottom: none; }
     .shortcut .key { font-family: 'JetBrains Mono', monospace; background: var(--surface2); border: 1px solid var(--border-md); border-radius: 5px; padding: 2px 7px; font-size: 12px; color: var(--purple-dark); white-space: nowrap; }
     .shortcut .desc { color: var(--text-muted); line-height: 1.5; }
 
-    footer {
-      text-align: center;
-      padding: 24px;
-      color: var(--text-hint);
-      font-size: 13px;
-      border-top: 1px solid var(--border);
-    }
-
+    footer { text-align: center; padding: 24px; color: var(--text-hint); font-size: 13px; border-top: 1px solid var(--border); }
     @media (max-width: 560px) {
       .hero h1 { font-size: 26px; }
       nav .nav-btn span { display: none; }
       .calc { width: 100%; }
-      .score-bar { flex-wrap: wrap; gap: 8px; }
     }
   </style>
 </head>
@@ -401,18 +137,17 @@
   </a>
   <nav>
     <button class="nav-btn active" onclick="showTab('materi')">📖 <span>Materi</span></button>
-    <button class="nav-btn" onclick="showTab('kuis')">✏️ <span>Kuis</span></button>
+    <button class="nav-btn" onclick="showTab('latihan')">🎯 <span>Latihan</span></button>
     <button class="nav-btn" onclick="showTab('kalkulator')">🔢 <span>Kalkulator</span></button>
   </nav>
 </header>
 
 <main>
 
-  <!-- HERO -->
   <div class="hero">
     <div class="hero-badge">✨ Gratis & tanpa login</div>
     <h1>Belajar Matematika<br>jadi lebih mudah</h1>
-    <p>Pelajari materi, uji kemampuan dengan kuis interaktif, dan pakai kalkulator bawaan — semuanya di satu tempat.</p>
+    <p>Pelajari materi, uji kemampuan dengan latihan soal bertingkat, dan pakai kalkulator bawaan.</p>
   </div>
 
   <!-- MATERI -->
@@ -442,15 +177,33 @@
     <div id="lesson-content"></div>
   </div>
 
-  <!-- KUIS -->
-  <div id="kuis" class="section">
-    <div class="score-bar">
-      <span>Soal <b id="q-num">0</b>/<b>5</b></span>
-      <div class="progress-wrap"><div class="progress-fill" id="q-progress" style="width:0%"></div></div>
-      <span>✅ <b id="q-correct" style="color:var(--green-border)">0</b></span>
-      <span>❌ <b id="q-wrong" style="color:var(--red-border)">0</b></span>
+  <!-- LATIHAN -->
+  <div id="latihan" class="section">
+    <div class="latihan-header">
+      <h2>Latihan Soal</h2>
     </div>
-    <div id="quiz-container"></div>
+
+    <div class="topic-tabs">
+      <button class="topic-tab active" onclick="setTopic('penjumlahan', this)">➕ Penjumlahan</button>
+      <button class="topic-tab" onclick="setTopic('perkalian', this)">✖️ Perkalian</button>
+      <button class="topic-tab" onclick="setTopic('pecahan', this)">½ Pecahan</button>
+      <button class="topic-tab" onclick="setTopic('persen', this)">% Persen</button>
+    </div>
+
+    <div class="diff-tabs">
+      <button class="diff-tab active-mudah" onclick="setDiff('mudah', this)">🟢 Mudah</button>
+      <button class="diff-tab" onclick="setDiff('sedang', this)">🟡 Sedang</button>
+      <button class="diff-tab" onclick="setDiff('susah', this)">🔴 Susah</button>
+    </div>
+
+    <div class="lat-score-bar">
+      <span>Soal <b id="lat-num">0</b>/<b id="lat-total">5</b></span>
+      <div class="progress-wrap"><div class="progress-fill" id="lat-progress" style="width:0%"></div></div>
+      <span>✅ <b id="lat-correct" style="color:var(--green-border)">0</b></span>
+      <span>❌ <b id="lat-wrong" style="color:var(--red-border)">0</b></span>
+    </div>
+
+    <div id="lat-container"></div>
   </div>
 
   <!-- KALKULATOR -->
@@ -466,240 +219,331 @@
           <button class="calc-btn op" onclick="calcInput('(')">(</button>
           <button class="calc-btn op" onclick="calcInput(')')">)</button>
           <button class="calc-btn op" onclick="calcInput('/')">÷</button>
-
           <button class="calc-btn" onclick="calcInput('7')">7</button>
           <button class="calc-btn" onclick="calcInput('8')">8</button>
           <button class="calc-btn" onclick="calcInput('9')">9</button>
           <button class="calc-btn op" onclick="calcInput('*')">×</button>
-
           <button class="calc-btn" onclick="calcInput('4')">4</button>
           <button class="calc-btn" onclick="calcInput('5')">5</button>
           <button class="calc-btn" onclick="calcInput('6')">6</button>
           <button class="calc-btn op" onclick="calcInput('-')">−</button>
-
           <button class="calc-btn" onclick="calcInput('1')">1</button>
           <button class="calc-btn" onclick="calcInput('2')">2</button>
           <button class="calc-btn" onclick="calcInput('3')">3</button>
           <button class="calc-btn op" onclick="calcInput('+')">+</button>
-
-          <button class="calc-btn" onclick="calcInput('0')" style="grid-column: span 2">0</button>
+          <button class="calc-btn" onclick="calcInput('0')" style="grid-column:span 2">0</button>
           <button class="calc-btn" onclick="calcInput('.')">.</button>
           <button class="calc-btn eq" onclick="calcEquals()">=</button>
         </div>
       </div>
-
       <div class="calc-info">
         <h3>Tips penggunaan</h3>
-        <div class="shortcut">
-          <span class="key">( )</span>
-          <span class="desc">Gunakan kurung untuk mengubah urutan operasi, misal <b>(2+3)×4</b></span>
-        </div>
-        <div class="shortcut">
-          <span class="key">AC</span>
-          <span class="desc">Hapus semua dan mulai dari awal</span>
-        </div>
-        <div class="shortcut">
-          <span class="key">÷ ×</span>
-          <span class="desc">Perkalian dan pembagian dikerjakan sebelum penjumlahan dan pengurangan</span>
-        </div>
-        <div class="shortcut">
-          <span class="key">0.5</span>
-          <span class="desc">Gunakan titik <b>.</b> untuk bilangan desimal</span>
-        </div>
+        <div class="shortcut"><span class="key">( )</span><span class="desc">Gunakan kurung untuk mengubah urutan operasi, misal <b>(2+3)×4</b></span></div>
+        <div class="shortcut"><span class="key">AC</span><span class="desc">Hapus semua dan mulai dari awal</span></div>
+        <div class="shortcut"><span class="key">÷ ×</span><span class="desc">Perkalian dan pembagian dikerjakan sebelum penjumlahan</span></div>
+        <div class="shortcut"><span class="key">0.5</span><span class="desc">Gunakan titik untuk bilangan desimal</span></div>
       </div>
     </div>
   </div>
 
 </main>
 
-<footer>
-  Dibuat dengan ❤️ untuk belajar matematika · MatDasar 2024
-</footer>
+<footer>Dibuat dengan ❤️ untuk belajar matematika · MatDasar 2024</footer>
 
 <script>
-  const lessons = {
-    penjumlahan: {
-      title: 'Penjumlahan & Pengurangan',
-      items: [
-        { sub: 'Sifat komutatif', formula: 'a + b = b + a', contoh: 'Contoh: 5 + 3 = 3 + 5 = 8. Urutan tidak memengaruhi hasil.' },
-        { sub: 'Sifat asosiatif', formula: '(a + b) + c = a + (b + c)', contoh: 'Contoh: (2 + 3) + 4 = 2 + (3 + 4) = 9. Pengelompokan boleh berubah.' },
-        { sub: 'Pengurangan sebagai penjumlahan negatif', formula: 'a − b = a + (−b)', contoh: 'Contoh: 10 − 4 = 10 + (−4) = 6' },
-        { sub: 'Penjumlahan bilangan negatif', formula: 'a + (−b) = a − b', contoh: 'Contoh: 7 + (−3) = 7 − 3 = 4' },
-      ]
-    },
-    perkalian: {
-      title: 'Perkalian & Pembagian',
-      items: [
-        { sub: 'Perkalian sebagai penjumlahan berulang', formula: 'a × b = a + a + ... (sebanyak b kali)', contoh: 'Contoh: 4 × 3 = 4 + 4 + 4 = 12' },
-        { sub: 'Sifat distributif', formula: 'a × (b + c) = (a × b) + (a × c)', contoh: 'Contoh: 3 × (2 + 4) = (3×2) + (3×4) = 6 + 12 = 18' },
-        { sub: 'Hubungan perkalian & pembagian', formula: 'a ÷ b = c  ⟺  c × b = a', contoh: 'Contoh: 12 ÷ 4 = 3 karena 3 × 4 = 12' },
-        { sub: 'Pembagian dengan sisa', formula: 'a = (b × q) + r  (r < b)', contoh: 'Contoh: 17 ÷ 5 → q = 3, r = 2 karena 17 = (5×3) + 2' },
-      ]
-    },
-    pecahan: {
-      title: 'Pecahan',
-      items: [
-        { sub: 'Menyamakan penyebut (penjumlahan)', formula: 'a/b + c/d = (a×d + c×b) / (b×d)', contoh: 'Contoh: 1/2 + 1/3 = 3/6 + 2/6 = 5/6' },
-        { sub: 'Pengurangan pecahan', formula: 'a/b − c/d = (a×d − c×b) / (b×d)', contoh: 'Contoh: 3/4 − 1/3 = 9/12 − 4/12 = 5/12' },
-        { sub: 'Perkalian pecahan', formula: 'a/b × c/d = (a × c) / (b × d)', contoh: 'Contoh: 2/3 × 3/4 = 6/12 = 1/2' },
-        { sub: 'Penyederhanaan (FPB)', formula: 'a/b ÷ FPB(a,b) / b ÷ FPB(a,b)', contoh: 'Contoh: 6/8 → FPB(6,8)=2 → 3/4' },
-      ]
-    },
-    persen: {
-      title: 'Persentase',
-      items: [
-        { sub: 'Persen ke desimal', formula: 'p% = p / 100', contoh: 'Contoh: 25% = 25/100 = 0,25' },
-        { sub: 'Menghitung persen dari angka', formula: 'p% dari n = (p / 100) × n', contoh: 'Contoh: 20% dari 150 = 0,20 × 150 = 30' },
-        { sub: 'Persentase kenaikan', formula: '% naik = ((baru − lama) / lama) × 100', contoh: 'Contoh: dari 80 ke 100 → (20/80)×100 = 25% naik' },
-        { sub: 'Persentase penurunan', formula: '% turun = ((lama − baru) / lama) × 100', contoh: 'Contoh: dari 200 ke 160 → (40/200)×100 = 20% turun' },
-      ]
-    }
-  };
-
-  function showTab(id) {
-    document.querySelectorAll('.nav-btn').forEach((btn, i) => {
-      btn.classList.toggle('active', ['materi','kuis','kalkulator'][i] === id);
-    });
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    if (id === 'kuis' && document.getElementById('quiz-container').innerHTML === '') startQuiz();
+// ============ MATERI ============
+const lessons = {
+  penjumlahan: {
+    title: 'Penjumlahan & Pengurangan',
+    items: [
+      { sub: 'Sifat komutatif', formula: 'a + b = b + a', contoh: 'Contoh: 5 + 3 = 3 + 5 = 8. Urutan tidak memengaruhi hasil.' },
+      { sub: 'Sifat asosiatif', formula: '(a + b) + c = a + (b + c)', contoh: 'Contoh: (2 + 3) + 4 = 2 + (3 + 4) = 9' },
+      { sub: 'Pengurangan', formula: 'a − b = a + (−b)', contoh: 'Contoh: 10 − 4 = 6' },
+      { sub: 'Bilangan negatif', formula: 'a + (−b) = a − b', contoh: 'Contoh: 7 + (−3) = 4' },
+    ]
+  },
+  perkalian: {
+    title: 'Perkalian & Pembagian',
+    items: [
+      { sub: 'Perkalian berulang', formula: 'a × b = a + a + ... (b kali)', contoh: 'Contoh: 4 × 3 = 4 + 4 + 4 = 12' },
+      { sub: 'Sifat distributif', formula: 'a × (b + c) = (a×b) + (a×c)', contoh: 'Contoh: 3 × (2 + 4) = 6 + 12 = 18' },
+      { sub: 'Hubungan × dan ÷', formula: 'a ÷ b = c  ⟺  c × b = a', contoh: 'Contoh: 12 ÷ 4 = 3 karena 3 × 4 = 12' },
+      { sub: 'Pembagian dengan sisa', formula: 'a = (b × q) + r', contoh: 'Contoh: 17 ÷ 5 → q=3, r=2 karena 17 = (5×3)+2' },
+    ]
+  },
+  pecahan: {
+    title: 'Pecahan',
+    items: [
+      { sub: 'Penjumlahan pecahan', formula: 'a/b + c/d = (a×d + c×b) / (b×d)', contoh: 'Contoh: 1/2 + 1/3 = 3/6 + 2/6 = 5/6' },
+      { sub: 'Pengurangan pecahan', formula: 'a/b − c/d = (a×d − c×b) / (b×d)', contoh: 'Contoh: 3/4 − 1/3 = 9/12 − 4/12 = 5/12' },
+      { sub: 'Perkalian pecahan', formula: 'a/b × c/d = (a×c) / (b×d)', contoh: 'Contoh: 2/3 × 3/4 = 6/12 = 1/2' },
+      { sub: 'Penyederhanaan', formula: 'bagi pembilang & penyebut dengan FPB', contoh: 'Contoh: 6/8 → FPB=2 → 3/4' },
+    ]
+  },
+  persen: {
+    title: 'Persentase',
+    items: [
+      { sub: 'Persen ke desimal', formula: 'p% = p / 100', contoh: 'Contoh: 25% = 0,25' },
+      { sub: 'Persen dari angka', formula: 'p% dari n = (p/100) × n', contoh: 'Contoh: 20% dari 150 = 30' },
+      { sub: 'Persentase kenaikan', formula: '% naik = ((baru−lama)/lama) × 100', contoh: 'Contoh: 80 → 100 = 25% naik' },
+      { sub: 'Persentase penurunan', formula: '% turun = ((lama−baru)/lama) × 100', contoh: 'Contoh: 200 → 160 = 20% turun' },
+    ]
   }
+};
 
-  function showLesson(key, card) {
-    document.querySelectorAll('.topic-card').forEach(c => c.classList.remove('selected'));
-    card.classList.add('selected');
-    const l = lessons[key];
-    const el = document.getElementById('lesson-content');
-    el.innerHTML = `
-      <div class="lesson-box">
-        <h2>${l.title}</h2>
-        ${l.items.map(item => `
-          <div class="lesson-item">
-            <div class="lesson-sub">${item.sub}</div>
-            <div class="formula">${item.formula}</div>
-            <div class="example">${item.contoh}</div>
-          </div>
-        `).join('')}
-      </div>`;
-    el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+function showTab(id) {
+  document.querySelectorAll('.nav-btn').forEach((btn, i) => btn.classList.toggle('active', ['materi','latihan','kalkulator'][i] === id));
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (id === 'latihan' && !latStarted) startLat();
+}
+
+function showLesson(key, card) {
+  document.querySelectorAll('.topic-card').forEach(c => c.classList.remove('selected'));
+  card.classList.add('selected');
+  const l = lessons[key];
+  const el = document.getElementById('lesson-content');
+  el.innerHTML = `<div class="lesson-box"><h2>${l.title}</h2>${l.items.map(i=>`<div class="lesson-item"><div class="lesson-sub">${i.sub}</div><div class="formula">${i.formula}</div><div class="example">${i.contoh}</div></div>`).join('')}</div>`;
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// ============ LATIHAN SOAL ============
+const soalBank = {
+  penjumlahan: {
+    mudah: [
+      { q: '12 + 15 = ?', opts: ['25','27','28','26'], ans: '27', explain: '12 + 15 = 27' },
+      { q: '34 − 11 = ?', opts: ['21','22','23','24'], ans: '23', explain: '34 − 11 = 23' },
+      { q: '8 + 9 = ?', opts: ['15','16','17','18'], ans: '17', explain: '8 + 9 = 17' },
+      { q: '50 − 23 = ?', opts: ['25','26','27','28'], ans: '27', explain: '50 − 23 = 27' },
+      { q: '45 + 30 = ?', opts: ['70','72','75','78'], ans: '75', explain: '45 + 30 = 75' },
+      { q: '100 − 37 = ?', opts: ['60','63','65','67'], ans: '63', explain: '100 − 37 = 63' },
+      { q: '21 + 14 = ?', opts: ['33','34','35','36'], ans: '35', explain: '21 + 14 = 35' },
+    ],
+    sedang: [
+      { q: '248 + 175 = ?', opts: ['413','423','433','443'], ans: '423', explain: '248 + 175 = 423' },
+      { q: '500 − 163 = ?', opts: ['327','337','347','357'], ans: '337', explain: '500 − 163 = 337' },
+      { q: '356 + 289 = ?', opts: ['635','645','655','665'], ans: '645', explain: '356 + 289 = 645' },
+      { q: '1000 − 427 = ?', opts: ['563','573','583','593'], ans: '573', explain: '1000 − 427 = 573' },
+      { q: '(34 + 56) − 28 = ?', opts: ['58','60','62','64'], ans: '62', explain: '34+56=90, lalu 90−28=62' },
+      { q: '127 + 243 + 85 = ?', opts: ['445','455','465','475'], ans: '455', explain: '127+243=370, lalu 370+85=455' },
+      { q: '800 − 345 − 123 = ?', opts: ['322','332','342','352'], ans: '332', explain: '800−345=455, lalu 455−123=332' },
+    ],
+    susah: [
+      { q: 'Nilai x jika x + 48 = 123 adalah...', opts: ['65','70','75','80'], ans: '75', explain: 'x = 123 − 48 = 75' },
+      { q: 'Jumlah tiga bilangan berurutan adalah 75. Bilangan terkecilnya?', opts: ['22','23','24','25'], ans: '24', explain: 'Misal n, n+1, n+2. Maka 3n+3=75 → n=24' },
+      { q: '2345 + 1876 − 987 = ?', opts: ['3224','3234','3244','3254'], ans: '3234', explain: '2345+1876=4221, lalu 4221−987=3234' },
+      { q: 'Selisih dua bilangan adalah 47. Jika bilangan besar = 136, bilangan kecilnya?', opts: ['85','87','89','91'], ans: '89', explain: '136 − 47 = 89' },
+      { q: 'Rata-rata dari 42, 58, 74, dan 66 adalah...', opts: ['58','60','62','64'], ans: '60', explain: '(42+58+74+66)/4 = 240/4 = 60' },
+    ]
+  },
+  perkalian: {
+    mudah: [
+      { q: '6 × 7 = ?', opts: ['40','42','44','46'], ans: '42', explain: '6 × 7 = 42' },
+      { q: '48 ÷ 6 = ?', opts: ['6','7','8','9'], ans: '8', explain: '48 ÷ 6 = 8 karena 8 × 6 = 48' },
+      { q: '9 × 5 = ?', opts: ['40','43','45','47'], ans: '45', explain: '9 × 5 = 45' },
+      { q: '35 ÷ 7 = ?', opts: ['3','4','5','6'], ans: '5', explain: '35 ÷ 7 = 5 karena 5 × 7 = 35' },
+      { q: '8 × 8 = ?', opts: ['60','62','64','66'], ans: '64', explain: '8 × 8 = 64' },
+      { q: '72 ÷ 9 = ?', opts: ['6','7','8','9'], ans: '8', explain: '72 ÷ 9 = 8 karena 8 × 9 = 72' },
+      { q: '4 × 12 = ?', opts: ['44','46','48','50'], ans: '48', explain: '4 × 12 = 48' },
+    ],
+    sedang: [
+      { q: '24 × 15 = ?', opts: ['340','350','360','370'], ans: '360', explain: '24 × 15 = 24 × 10 + 24 × 5 = 240 + 120 = 360' },
+      { q: '288 ÷ 12 = ?', opts: ['22','24','26','28'], ans: '24', explain: '288 ÷ 12 = 24 karena 24 × 12 = 288' },
+      { q: '35 × 12 = ?', opts: ['400','410','420','430'], ans: '420', explain: '35 × 12 = 35 × 10 + 35 × 2 = 350 + 70 = 420' },
+      { q: '3 × (25 + 15) = ?', opts: ['100','110','120','130'], ans: '120', explain: '25+15=40, lalu 3×40=120' },
+      { q: '144 ÷ 12 = ?', opts: ['10','11','12','13'], ans: '12', explain: '144 ÷ 12 = 12' },
+      { q: '18 × 25 = ?', opts: ['420','430','440','450'], ans: '450', explain: '18 × 25 = 18 × 100/4 = 1800/4 = 450' },
+    ],
+    susah: [
+      { q: 'Nilai x jika 8x = 216 adalah...', opts: ['24','26','27','28'], ans: '27', explain: 'x = 216 ÷ 8 = 27' },
+      { q: '125 × 16 = ?', opts: ['1900','1950','2000','2050'], ans: '2000', explain: '125 × 16 = 125 × 8 × 2 = 1000 × 2 = 2000' },
+      { q: 'Sebuah persegi panjang panjang 24 cm dan lebar 15 cm. Luasnya?', opts: ['340 cm²','350 cm²','360 cm²','370 cm²'], ans: '360 cm²', explain: 'Luas = 24 × 15 = 360 cm²' },
+      { q: '(12 × 15) ÷ (9 × 5) = ?', opts: ['2','3','4','5'], ans: '4', explain: '12×15=180, 9×5=45, 180÷45=4' },
+      { q: 'Sisa dari 247 ÷ 8 adalah...', opts: ['5','6','7','8'], ans: '7', explain: '247 = 8×30 + 7, jadi sisa = 7' },
+    ]
+  },
+  pecahan: {
+    mudah: [
+      { q: '1/2 + 1/4 = ?', opts: ['2/6','3/4','2/4','3/6'], ans: '3/4', explain: '1/2 = 2/4, jadi 2/4 + 1/4 = 3/4' },
+      { q: '3/4 − 1/4 = ?', opts: ['1/2','2/4','1/4','2/8'], ans: '1/2', explain: '3/4 − 1/4 = 2/4 = 1/2' },
+      { q: 'Bentuk sederhana 4/8 adalah...', opts: ['1/4','1/3','1/2','2/3'], ans: '1/2', explain: 'FPB(4,8)=4, jadi 4/8 = 1/2' },
+      { q: '2/3 × 3/4 = ?', opts: ['5/7','6/12','1/2','5/12'], ans: '1/2', explain: '(2×3)/(3×4) = 6/12 = 1/2' },
+      { q: '1/3 + 1/3 = ?', opts: ['1/6','2/3','2/6','1/3'], ans: '2/3', explain: '1/3 + 1/3 = 2/3' },
+      { q: 'Bentuk sederhana 6/9 adalah...', opts: ['1/3','2/3','3/4','1/2'], ans: '2/3', explain: 'FPB(6,9)=3, jadi 6/9 = 2/3' },
+    ],
+    sedang: [
+      { q: '2/3 + 3/4 = ?', opts: ['5/7','17/12','5/12','8/12'], ans: '17/12', explain: '(2×4 + 3×3)/(3×4) = (8+9)/12 = 17/12' },
+      { q: '5/6 − 1/4 = ?', opts: ['4/2','7/12','4/12','7/10'], ans: '7/12', explain: '(5×4 − 1×6)/24 = (20−6)/24 = 14/24 = 7/12' },
+      { q: '3/5 × 10/9 = ?', opts: ['1/3','2/3','1/2','2/5'], ans: '2/3', explain: '(3×10)/(5×9) = 30/45 = 2/3' },
+      { q: '(1/2 + 1/3) × 6 = ?', opts: ['3','4','5','6'], ans: '5', explain: '1/2+1/3=5/6, lalu 5/6×6=5' },
+      { q: 'Mana yang lebih besar: 3/5 atau 4/7?', opts: ['3/5','4/7','sama besar','tidak bisa dibanding'], ans: '3/5', explain: '3/5=21/35 dan 4/7=20/35, jadi 3/5 > 4/7' },
+    ],
+    susah: [
+      { q: '2/3 ÷ 4/9 = ?', opts: ['1','3/2','8/27','6/4'], ans: '3/2', explain: '2/3 ÷ 4/9 = 2/3 × 9/4 = 18/12 = 3/2' },
+      { q: 'Jika 3/4 dari x = 18, maka x = ?', opts: ['20','22','24','26'], ans: '24', explain: 'x = 18 × 4/3 = 72/3 = 24' },
+      { q: '1/2 + 1/3 + 1/6 = ?', opts: ['2/3','5/6','1','7/6'], ans: '1', explain: 'KPK=6: 3/6+2/6+1/6=6/6=1' },
+      { q: 'Urutan dari kecil ke besar: 2/3, 3/4, 5/8', opts: ['2/3, 3/4, 5/8','5/8, 2/3, 3/4','3/4, 2/3, 5/8','5/8, 3/4, 2/3'], ans: '5/8, 2/3, 3/4', explain: 'KPK=24: 5/8=15/24, 2/3=16/24, 3/4=18/24 → 15<16<18' },
+      { q: 'Nilai 2½ + 1¾ = ?', opts: ['3¾','4¼','4½','3½'], ans: '4¼', explain: '2½=10/4, 1¾=7/4, total=17/4=4¼' },
+    ]
+  },
+  persen: {
+    mudah: [
+      { q: '10% dari 200 adalah...', opts: ['15','20','25','30'], ans: '20', explain: '10/100 × 200 = 20' },
+      { q: '50% dari 80 adalah...', opts: ['30','35','40','45'], ans: '40', explain: '50/100 × 80 = 40' },
+      { q: '25% = ... (desimal)', opts: ['0,20','0,25','0,30','0,50'], ans: '0,25', explain: '25/100 = 0,25' },
+      { q: '0,75 = ...%', opts: ['55%','65%','75%','85%'], ans: '75%', explain: '0,75 × 100 = 75%' },
+      { q: '5% dari 300 adalah...', opts: ['10','15','20','25'], ans: '15', explain: '5/100 × 300 = 15' },
+      { q: '1/4 = ...%', opts: ['20%','25%','30%','35%'], ans: '25%', explain: '1/4 × 100 = 25%' },
+    ],
+    sedang: [
+      { q: 'Harga baju Rp80.000, diskon 25%. Harga setelah diskon?', opts: ['Rp55.000','Rp60.000','Rp65.000','Rp70.000'], ans: 'Rp60.000', explain: 'Diskon = 25% × 80.000 = 20.000. Harga = 80.000 − 20.000 = 60.000' },
+      { q: 'Nilai ujian naik dari 60 ke 75. Kenaikannya berapa persen?', opts: ['20%','25%','30%','35%'], ans: '25%', explain: '(75−60)/60 × 100 = 15/60 × 100 = 25%' },
+      { q: '35% dari 460 adalah...', opts: ['151','161','171','181'], ans: '161', explain: '35/100 × 460 = 161' },
+      { q: 'Harga setelah PPN 11% dari Rp200.000 adalah...', opts: ['Rp218.000','Rp220.000','Rp222.000','Rp224.000'], ans: 'Rp222.000', explain: 'PPN = 11% × 200.000 = 22.000. Total = 222.000' },
+      { q: 'Tabungan Rp500.000 berbunga 6% per tahun. Bunga 1 tahun?', opts: ['Rp25.000','Rp30.000','Rp35.000','Rp40.000'], ans: 'Rp30.000', explain: '6/100 × 500.000 = 30.000' },
+    ],
+    susah: [
+      { q: 'Harga asli Rp120.000 setelah diskon 15%. Harga jadi?', opts: ['Rp98.000','Rp100.000','Rp102.000','Rp104.000'], ans: 'Rp102.000', explain: 'Diskon = 15% × 120.000 = 18.000. Harga = 120.000 − 18.000 = 102.000' },
+      { q: 'Setelah diskon 20%, harga barang Rp96.000. Harga aslinya?', opts: ['Rp112.000','Rp116.000','Rp120.000','Rp124.000'], ans: 'Rp120.000', explain: 'Harga asli = 96.000 / 0,8 = 120.000' },
+      { q: 'Penjualan naik 30%, lalu turun 20%. Perubahan total?', opts: ['naik 4%','naik 6%','naik 8%','naik 10%'], ans: 'naik 4%', explain: '1,30 × 0,80 = 1,04 → naik 4%' },
+      { q: 'Siswa lulus 85%, gagal 18 orang. Total siswa?', opts: ['100','110','120','130'], ans: '120', explain: 'Gagal = 15% → 18 orang. Total = 18/0,15 = 120' },
+      { q: 'Modal Rp200.000, untung 35%. Harga jual?', opts: ['Rp255.000','Rp265.000','Rp270.000','Rp275.000'], ans: 'Rp270.000', explain: 'Untung = 35% × 200.000 = 70.000. Jual = 200.000 + 70.000 = 270.000' },
+    ]
   }
+};
 
-  const questions = [
-    { q: 'Berapa hasil dari 48 + 37?', opts: ['75', '85', '95', '65'], ans: '85' },
-    { q: 'Berapakah hasil dari 1/2 + 1/3?', opts: ['2/5', '5/6', '3/5', '2/6'], ans: '5/6' },
-    { q: '15% dari 200 adalah...', opts: ['25', '30', '35', '20'], ans: '30' },
-    { q: 'Hasil dari 9 × 8 − 12 adalah...', opts: ['54', '60', '48', '64'], ans: '60' },
-    { q: 'Jika 3/4 dari suatu bilangan = 18, bilangan tersebut adalah...', opts: ['24', '20', '22', '26'], ans: '24' },
-    { q: 'Dari 80 menjadi 100, berapa persen kenaikannya?', opts: ['15%', '20%', '25%', '30%'], ans: '25%' },
-    { q: 'Berapa hasil dari 144 ÷ 12?', opts: ['11', '12', '13', '14'], ans: '12' },
-    { q: 'Sederhanakan pecahan 18/24...', opts: ['3/4', '2/3', '5/6', '4/5'], ans: '3/4' },
-  ];
+let curTopic = 'penjumlahan', curDiff = 'mudah';
+let latIdx = 0, latCorrect = 0, latWrong = 0, latPool = [], latStarted = false;
 
-  let qIdx = 0, correct = 0, wrong = 0, shuffled = [];
+function setTopic(t, btn) {
+  curTopic = t;
+  document.querySelectorAll('.topic-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  startLat();
+}
 
-  function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5); }
-
-  function startQuiz() {
-    qIdx = 0; correct = 0; wrong = 0;
-    shuffled = shuffle(questions).slice(0, 5);
-    updateScore();
-    renderQuestion();
-  }
-
-  function renderQuestion() {
-    const container = document.getElementById('quiz-container');
-    if (qIdx >= shuffled.length) {
-      const pct = Math.round((correct / shuffled.length) * 100);
-      const emoji = pct === 100 ? '🏆' : pct >= 60 ? '🎉' : '💪';
-      const msg = pct === 100 ? 'Luar biasa! Semua jawaban benar!' : pct >= 60 ? 'Bagus! Terus latihan ya.' : 'Jangan menyerah, coba lagi!';
-      container.innerHTML = `
-        <div class="result-card">
-          <div class="result-emoji">${emoji}</div>
-          <h2>Kuis selesai!</h2>
-          <div class="result-score">${correct}/${shuffled.length}</div>
-          <p>${msg}</p>
-          <div style="margin-top:20px; display:flex; gap:10px; justify-content:center">
-            <button class="btn btn-primary" onclick="startQuiz()">Coba Lagi ↺</button>
-            <button class="btn" onclick="showTab('materi')">Pelajari Materi 📖</button>
-          </div>
-        </div>`;
-      return;
-    }
-
-    const q = shuffled[qIdx];
-    container.innerHTML = `
-      <div class="quiz-card">
-        <div class="quiz-num">Soal ${qIdx + 1} dari ${shuffled.length}</div>
-        <div class="quiz-q">${q.q}</div>
-        <div class="quiz-opts">
-          ${q.opts.map(o => `<button class="quiz-opt" onclick="checkAns(this,'${o}','${q.ans}')">${o}</button>`).join('')}
-        </div>
-        <div class="quiz-actions" id="quiz-actions" style="display:none">
-          <button class="btn btn-primary" onclick="nextQuestion()">Soal berikutnya →</button>
-        </div>
-      </div>`;
-  }
-
-  function checkAns(btn, selected, ans) {
-    document.querySelectorAll('.quiz-opt').forEach(b => b.classList.add('disabled'));
-    if (selected === ans) { btn.classList.add('correct'); correct++; }
-    else {
-      btn.classList.add('wrong');
-      document.querySelectorAll('.quiz-opt').forEach(b => { if (b.textContent === ans) b.classList.add('correct'); });
-      wrong++;
-    }
-    qIdx++;
-    updateScore();
-    document.getElementById('quiz-actions').style.display = 'flex';
-  }
-
-  function nextQuestion() { renderQuestion(); }
-
-  function updateScore() {
-    document.getElementById('q-num').textContent = qIdx;
-    document.getElementById('q-correct').textContent = correct;
-    document.getElementById('q-wrong').textContent = wrong;
-    document.getElementById('q-progress').style.width = (qIdx / shuffled.length * 100) + '%';
-  }
-
-  let calcExpr = '';
-
-  function calcInput(v) {
-    calcExpr += v;
-    document.getElementById('calc-expr').textContent = calcExpr.replace(/\*/g, '×').replace(/\//g, '÷');
-    try {
-      const r = Function('"use strict"; return (' + calcExpr + ')')();
-      if (isFinite(r)) document.getElementById('calc-result').textContent = parseFloat(r.toFixed(8));
-    } catch(e) {}
-  }
-
-  function calcClear() {
-    calcExpr = '';
-    document.getElementById('calc-expr').textContent = '';
-    document.getElementById('calc-result').textContent = '0';
-  }
-
-  function calcEquals() {
-    try {
-      const r = Function('"use strict"; return (' + calcExpr + ')')();
-      document.getElementById('calc-expr').textContent = calcExpr.replace(/\*/g, '×').replace(/\//g, '÷') + ' =';
-      document.getElementById('calc-result').textContent = parseFloat(r.toFixed(8));
-      calcExpr = String(r);
-    } catch(e) {
-      document.getElementById('calc-result').textContent = 'Error';
-      calcExpr = '';
-    }
-  }
-
-  document.addEventListener('keydown', e => {
-    if (document.getElementById('kalkulator').classList.contains('active')) {
-      if ('0123456789.+-*/()'.includes(e.key)) calcInput(e.key);
-      else if (e.key === 'Enter' || e.key === '=') calcEquals();
-      else if (e.key === 'Backspace') { calcExpr = calcExpr.slice(0, -1); document.getElementById('calc-expr').textContent = calcExpr.replace(/\*/g,'×').replace(/\//g,'÷'); }
-      else if (e.key === 'Escape') calcClear();
-    }
+function setDiff(d, btn) {
+  curDiff = d;
+  document.querySelectorAll('.diff-tab').forEach(b => {
+    b.classList.remove('active-mudah','active-sedang','active-susah');
   });
-</script>
+  btn.classList.add('active-' + d);
+  startLat();
+}
 
+function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5); }
+
+function startLat() {
+  latStarted = true;
+  latIdx = 0; latCorrect = 0; latWrong = 0;
+  latPool = shuffle(soalBank[curTopic][curDiff]).slice(0, 5);
+  updateLatScore();
+  renderLat();
+}
+
+function renderLat() {
+  const c = document.getElementById('lat-container');
+  if (latIdx >= latPool.length) {
+    const pct = Math.round((latCorrect / latPool.length) * 100);
+    const emoji = pct === 100 ? '🏆' : pct >= 60 ? '🎉' : '💪';
+    const msg = pct === 100 ? 'Sempurna! Semua benar!' : pct >= 60 ? 'Bagus! Terus berlatih ya.' : 'Jangan menyerah, coba lagi!';
+    const diffLabel = { mudah: '🟢 Mudah', sedang: '🟡 Sedang', susah: '🔴 Susah' }[curDiff];
+    c.innerHTML = `<div class="result-card">
+      <div class="result-emoji">${emoji}</div>
+      <h2>Latihan selesai!</h2>
+      <div class="result-score">${latCorrect}/${latPool.length}</div>
+      <p>${msg}<br><small style="color:var(--text-hint)">Topik: ${curTopic} · Tingkat: ${diffLabel}</small></p>
+      <div style="margin-top:20px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="startLat()">Ulangi ↺</button>
+        <button class="btn" onclick="nextDiff()">Tingkat berikutnya →</button>
+        <button class="btn" onclick="showTab('materi')">Pelajari Materi 📖</button>
+      </div>
+    </div>`;
+    return;
+  }
+  const q = latPool[latIdx];
+  const diffClass = curDiff;
+  const diffLabel = { mudah: '🟢 Mudah', sedang: '🟡 Sedang', susah: '🔴 Susah' }[curDiff];
+  c.innerHTML = `<div class="quiz-card">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px">
+      <div class="quiz-num">Soal ${latIdx+1} dari ${latPool.length}</div>
+      <span class="diff-badge ${diffClass}">${diffLabel}</span>
+    </div>
+    <div class="quiz-q">${q.q}</div>
+    <div class="quiz-opts">
+      ${q.opts.map(o => `<button class="quiz-opt" onclick="checkLat(this,'${o.replace(/'/g,"\\'")}','${q.ans.replace(/'/g,"\\'")}','${q.explain.replace(/'/g,"\\'")}')">${o}</button>`).join('')}
+    </div>
+    <div class="explain-box" id="explain-box"></div>
+    <div class="quiz-actions" id="lat-actions" style="display:none">
+      <button class="btn btn-primary" onclick="nextLat()">Soal berikutnya →</button>
+    </div>
+  </div>`;
+}
+
+function checkLat(btn, selected, ans, explain) {
+  document.querySelectorAll('.quiz-opt').forEach(b => b.classList.add('disabled'));
+  if (selected === ans) { btn.classList.add('correct'); latCorrect++; }
+  else {
+    btn.classList.add('wrong');
+    document.querySelectorAll('.quiz-opt').forEach(b => { if (b.textContent === ans) b.classList.add('correct'); });
+    latWrong++;
+  }
+  latIdx++;
+  updateLatScore();
+  const eb = document.getElementById('explain-box');
+  eb.textContent = '💡 ' + explain;
+  eb.style.display = 'block';
+  document.getElementById('lat-actions').style.display = 'flex';
+}
+
+function nextLat() { renderLat(); }
+
+function nextDiff() {
+  const order = ['mudah','sedang','susah'];
+  const next = order[order.indexOf(curDiff) + 1];
+  if (next) {
+    curDiff = next;
+    document.querySelectorAll('.diff-tab').forEach((b, i) => {
+      b.classList.remove('active-mudah','active-sedang','active-susah');
+      if (['mudah','sedang','susah'][i] === next) b.classList.add('active-' + next);
+    });
+    startLat();
+  }
+}
+
+function updateLatScore() {
+  document.getElementById('lat-num').textContent = latIdx;
+  document.getElementById('lat-total').textContent = latPool.length || 5;
+  document.getElementById('lat-correct').textContent = latCorrect;
+  document.getElementById('lat-wrong').textContent = latWrong;
+  const total = latPool.length || 5;
+  document.getElementById('lat-progress').style.width = (latIdx / total * 100) + '%';
+}
+
+// ============ KALKULATOR ============
+let calcExpr = '';
+function calcInput(v) {
+  calcExpr += v;
+  document.getElementById('calc-expr').textContent = calcExpr.replace(/\*/g,'×').replace(/\//g,'÷');
+  try { const r = Function('"use strict"; return ('+calcExpr+')')(); if (isFinite(r)) document.getElementById('calc-result').textContent = parseFloat(r.toFixed(8)); } catch(e){}
+}
+function calcClear() { calcExpr=''; document.getElementById('calc-expr').textContent=''; document.getElementById('calc-result').textContent='0'; }
+function calcEquals() {
+  try {
+    const r = Function('"use strict"; return ('+calcExpr+')')();
+    document.getElementById('calc-expr').textContent = calcExpr.replace(/\*/g,'×').replace(/\//g,'÷') + ' =';
+    document.getElementById('calc-result').textContent = parseFloat(r.toFixed(8));
+    calcExpr = String(r);
+  } catch(e) { document.getElementById('calc-result').textContent = 'Error'; calcExpr=''; }
+}
+document.addEventListener('keydown', e => {
+  if (document.getElementById('kalkulator').classList.contains('active')) {
+    if ('0123456789.+-*/()'.includes(e.key)) calcInput(e.key);
+    else if (e.key === 'Enter' || e.key === '=') calcEquals();
+    else if (e.key === 'Backspace') { calcExpr=calcExpr.slice(0,-1); document.getElementById('calc-expr').textContent=calcExpr.replace(/\*/g,'×').replace(/\//g,'÷'); }
+    else if (e.key === 'Escape') calcClear();
+  }
+});
+</script>
 </body>
 </html>
